@@ -27,14 +27,41 @@
           </form>
       </div>
         <div class="col-md-6">
-            <a href="#" class="btn btn-lg btn-primary"> <i class="fa fa-print"></i>Print All Cards</a>
+
+            <script type="text/javascript">
+                function PrintElem(elem) {
+                    Popup($(elem).html());
+                }
+
+                function Popup(data) {
+                    var myWindow = window.open('', 'my div', 'height=400,width=600');
+                    myWindow.document.write('<html><head><title>my div</title>');
+                    /*optional stylesheet*/ //myWindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+                    myWindow.document.write('  <link rel=\"stylesheet\" href=\"/assets/css/bootstrap.min.css\" >');
+                    myWindow.document.write('</head><body >');
+                    myWindow.document.write('<div class=\"row\">')
+                    myWindow.document.write(data);
+                    myWindow.document.write('</div>')
+                    myWindow.document.write('</body></html>');
+                    myWindow.document.close(); // necessary for IE >= 10
+
+                    myWindow.onload=function(){ // necessary if the div contain images
+
+                        myWindow.focus(); // necessary for IE >= 10
+                        myWindow.print();
+                        myWindow.close();
+                    };
+                }
+            </script>
+
+            <a href="javascript:PrintElem('#cards')" class="btn btn-lg btn-primary"> <i class="fa fa-print"></i>Print All Cards</a>
             <a href="#" class="btn btn-lg btn-danger"> <i class="fa fa-trash"></i>Delete All Cards</a>
 
 
         </div>
     </div>
 
-<div class="row">
+<div class="row" id="cards">
         @foreach($cards as $card)
 
             <div class="col-md-4">

@@ -24,10 +24,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
 
-        $random_number_array = range(1, 75);
-        shuffle($random_number_array );
-        $random_number_array = array_slice($random_number_array ,0,75);
-        return view('dashboard')->with('random_number_array',$random_number_array);
+        return view('dashboard')->with('random_number_array');
 
 
 
