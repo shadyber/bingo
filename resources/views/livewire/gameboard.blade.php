@@ -41,15 +41,15 @@
 
 
                             @for($j=0;$j<15;$j++)
-                                <td class="border border-gray-100 border-3   "> <div class="card card-body
+                                <td class="border border-gray-100 border-3   ">
+                                 <div class="card card-body
 
-                                        @if($k==$random_number_array[$call_index])
-                                        bg-red-600 text-green-400 rounded-full
-                                        @else
-                                            bg-green-100 text-gray-900
-                                        @endif">
 
-                                        {{$k++}}
+                                      @if((array_search($k,$call_history,true)!=null)||$k==$random_number_array[0])
+                                     bg-red-600 text-green-400 rounded-full
+                                    @endif">
+
+                                    {{$k++}}
                                     </div>
                                 </td>
                             @endfor
@@ -61,13 +61,42 @@
                 <hr>
                 <h3 class="text-gray-300 text-xl">Call History</h3>
 
-                <div class="row">@for($i=$call_index; $i>=0; $i--)
-                        <div class="col-md-1 m-1 p-1">
+                <div class="row">
+                    @foreach(array_reverse($call_history) as $call)
+                        <div class="col-md-1 m-1 p-1 border-3 border border-gray-300 rounded-full">
 
-                            <div class="card card-body font-semibold text-2xl bg-gray-200 rounded-full "> {{$random_number_array[$i]}}</div>
+                            <div class="card card-body font-semibold bg-gray-200 rounded-full text-center">
+                                <small class="text-xs">
+
+                                @switch($call)
+                                    @case($call<15)
+                                    B
+                                    @break
+
+                                    @case($call<30)
+                                    I
+                                    @break
+
+                                    @case($call<45)
+                                    N
+                                    @break
+
+                                    @case($call<60)
+                                    G
+                                    @break
+                                    @case($call<75)
+                                    O
+                                    @break
+                                @endswitch
+
+                                </small>
+
+                              <p class="text-2xl font-semibold"> {{$call}}</p>
+
+                            </div>
 
                         </div>
-                    @endfor
+                    @endforeach
 
 
                 </div>
@@ -84,7 +113,7 @@
                         <h1  class="text-2xl font-semibold rounded-full bg-gray-200 text-center">{{$random_number_array[$call_index]}}</h1>
                         <p class="card-text">Total Call</p>
                         <h1  class="text-2xl font-semibold rounded-full bg-gray-200 text-center">{{$call_index+1}}</h1>
-                        <a href="#"  class="btn block btn-success">New Game</a>
+                        <a href="#"  class="btn block btn-success" wire:click="newGame">New Game</a>
                         <a href="#" class="card-link btn-outline-success btn block">Auto Play</a>
                         <a href="#" class="card-link btn-outline-success btn block"  wire:click="nextCall">Next Call</a>
                     </div>
