@@ -23,6 +23,21 @@
                         {{ __('Cards') }}
                     </x-nav-link>
                 </div>
+
+                @if(\App\Models\Game::getGameState()=="started")
+                    <form action="/endgame" method="post">
+                        @csrf
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <button type="submit" class="btn btn-lg btn-outline-primary border border-2 border-danger">
+                        {{ __('End Game') }}
+                    </button>
+                </div>
+
+                 </form>
+                    @endif
+
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

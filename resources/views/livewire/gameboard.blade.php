@@ -107,7 +107,7 @@
             <div class="leftside bg-gray-200">
                 <div class="card" style="width: 28rem;">
                     <div class="card-body p-2 m-2 space-y-1">
-                        <h5 class="card-title">Bingo Addis  Logo</h5>
+                        <h5 class="card-title">Game ID:  {{$game? $game->id : ''}} </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Last Call</h6>
                         <h1  class="text-2xl font-semibold rounded-full bg-gray-200 text-center">{{$random_number_array[$call_index]}}</h1>
                         <p class="card-text">Total Call</p>
@@ -129,7 +129,6 @@
 
                             </div>
                         </div>
-                        <a href="#"  class="btn block btn-success" wire:click="newGame">New Game</a>
                         <a href="#" class="card-link btn-primary btn block" id="startButton">Auto Play</a>
                         <a href="#" class="card-link btn-primary btn block" id="stopButton">Manual Call</a>
                         <a href="#" class="card-link btn-secondary btn block"  wire:click="nextCall">Next Call</a>

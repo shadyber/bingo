@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function Pest\Laravel\json;
@@ -29,7 +30,38 @@ class CardController extends Controller
      return $card;
  }
 
+
+
+public function saveGame(){
+    $selected_cards  =json_encode(session()->get('selected_cards',[]));
+    $random_numbers=json_encode(session()->get('random_numbers',[]));
+
+
+if($selected_cards!="[]"){
+    $game=Game::create([
+        'user_id'=>Auth::user()->id,
+        'selected_cards'=>$selected_cards,
+        'random_numbers'=>$random_numbers,
+    ]);
+
+}
+
+
+
+
+}
+ // payment process form
+    public function payCommision(){
+     // count selected card
+
+        // save transaction
+
+        // calculate transaction
+    }
+
+
     public function regeneraterandomarray(){
+
         $random_number_array = range(1, 75);
         shuffle($random_number_array );
         $random_number_array = array_slice($random_number_array ,0,75);
@@ -40,19 +72,66 @@ class CardController extends Controller
 
 
     public function togglecard(Request $request){
-    $card=Card::find($request->input('card_id'));
-    $card->is_active=!$card->is_active;
-    $card->save();
+
+     // confirm game state before addisng a card to list
+        if(Game::getGameState()=="started")
+        {
+          $request->session()->flash("error","Game in progress ! you could not toggle Cards at this time.");
+
+        }else{
+            $card=Card::find($request->input('card_id'));
+            $card->is_active=!$card->is_active;
+            $card->save();
+
+            $selected_cards=Card::activeCardsByAgent();
+            // is card allowed on game in progress
+            session()->put('selected_cards',$selected_cards);
+        }
+
     return redirect()->back();
  }
+
  public function startnewgame(Request $request){
-     $selected_cards=Card::activeCardsByAgent();
+
+     if(Game::getGameState()=="started"){
+         $request->session()->flash('message',"Game is In Progress...");
+         return redirect()->back();
+     }
+
+
+      $selected_cards=Card::activeCardsByAgent();
+
+      if(count($selected_cards)==0){
+          $request->session()->flash('error','No cards are selected to start a game.');
+          return  redirect()->back();
+      }
+
      session()->put('selected_cards',$selected_cards);
+
     $random_numbers=$this->regeneraterandomarray();
+
     session()->put('random_numbers',$random_numbers);
+
+    $this->saveGame();
+    $this->payCommision();
+
+
+
    return redirect()->route('dashboard');
  }
 
+
+ public function endGame(){
+     $game=Game::lastActiveGame();
+     if($game){
+       $game->game_state="finished";
+     }
+     $game->save();
+     session()->remove("selected_cards");
+     session()->remove("random_numbers");
+
+     return redirect()->route("card.index")->with(["message","Game Ended"]);
+ }
     /**
      * Display a listing of the resource.
      *
@@ -82,8 +161,14 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(Game::getGameState()=="started"){
+            $request->session()->flash("error","Game is in progress ! you cannot generate new card at this time.");
+            return redirect()->back();
+        }
         $user_id=Auth::user()->id;
-Card::where('user_id',$user_id)->delete();
+
+       Card::where('user_id',$user_id)->delete();
         $qnt = $request->input('cardsqnt');
 
 
@@ -98,6 +183,8 @@ $card =new Card();
   $card->save();
 
         }
+        session()->remove('selected_cards');
+        session()->remove('random_numbers');
         return view('card.index')->with('cards',Card::where('user_id',Auth::user()->id)->get());
     }
 

@@ -14,4 +14,5 @@ class Card extends Model
     public static function  activeCardsByAgent(){
      return  Card::where('is_active',true)->where('user_id',Auth::user()->id)->get();
 }
+
 }
