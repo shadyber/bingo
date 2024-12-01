@@ -10,8 +10,16 @@ use Livewire\Component;
 class Gameboard extends Component
 {
     protected $listeners = ['runAuto'];
-    public $random_number_array, $call_index=0, $call_history, $selected_cards, $game;
+    public $random_number_array, $call_index=0, $call_history, $selected_cards, $game, $card_to_check, $selected_card_id;
 
+
+
+    public function showModal() {
+    $this->card_to_check=Card::where('id',$this->selected_card_id)->get();
+        $this->dispatchBrowserEvent('show-modal');
+
+    }
+    public function hideModal() { $this->dispatchBrowserEvent('hide-modal'); }
 
     public function runAuto() {
         // Your method logic here // For example: $this->doSomething();
@@ -21,13 +29,20 @@ class Gameboard extends Component
 
 
 public function nextCall(){
-        if($this->call_index<75){
+
+        if($this->call_index>=74){
+           $this->call_index=74;
+
+        }else{
             $this->call_index++;
             $this->call_history[]=$this->random_number_array[$this->call_index];
-          //  $this->dispatchBrowserEvent('play-audio', ['url' => '/assets/audio/chimes/chime.mp3']);
-
-
+            //  $this->dispatchBrowserEvent('play-audio', ['url' => '/assets/audio/chimes/chime.mp3']);
         }
+
+
+
+
+
 
 
 }

@@ -62,7 +62,7 @@
 
                 <div class="row">
                     @foreach(array_reverse($call_history) as $call)
-                        <div class="col-md-1 m-1 p-1 border-3 border border-gray-300 rounded-full">
+                        <div class="col-sm-1 m-1 p-1 border-2 border border-gray-300 rounded-full ">
 
                             <div class="card card-body font-semibold bg-gray-200 rounded-full text-center">
                                 <small class="text-xs">
@@ -83,7 +83,7 @@
                                     @case($call<60)
                                     G
                                     @break
-                                    @case($call<75)
+                                    @case($call<76)
                                     O
                                     @break
                                 @endswitch
@@ -135,14 +135,15 @@
 
                         <div class="input-group">
                             <label for="selected_cards">Selected Cards</label>
-                            <select name="selected_cards" id="selected_cards" class="form-control">
+                            <select name="selected_cards" id="selected_cards" class="form-control" wire:model="selected_card_id">
+                                <option value="">Select Card to Check</option>
                                 @foreach($selected_cards as $selectedcard)
-                                    <option value=""> {{$selectedcard->card_name}}</option>
+                                    <option value="{{$selectedcard->id}}"> {{$selectedcard->card_name}}</option>
                                 @endforeach
 
                             </select>
                         </div>
-                        <a href="#" class="btn block btn-danger btn-lg">Check Winner</a>
+                        <a href="#" class="btn block btn-danger btn-lg" wire:click="showModal()" >Check Card: {{$selected_card_id}}</a>
 
                     </div>
                 </div>
@@ -215,8 +216,93 @@
         </div>
 
 
+        <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Bingo Card to Check</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+     @if($card_to_check!=null)
+
+
+
+                                <div class="max-w-sm pb-3 mb-4   border border-gray-200 rounded-lg  ">
+
+
+
+                                    <table class="table border border-2 border-gray-300 text-2xl p-4 ml-3 text-center mb-4  center">
+
+                                        <tbody>
+
+
+                                        @foreach(json_decode($card_to_check[0]->numbers) as $key=>$numbers)
+                                            <tr class="border border-2 border-gray-300 text-2xl p-4 ml-3 text-center mb-4">
+                                                <th class="border border-2 border-gray-300 rounded-full ">
+                                                    @switch($key)
+                                                        @case(0)
+                                                        B
+                                                        @break
+
+                                                        @case(1)
+                                                        I
+                                                        @break
+
+                                                        @case(2)
+                                                        N
+                                                        @break
+
+                                                        @case(3)
+                                                        G
+                                                        @break
+                                                        @case(4)
+                                                        O
+                                                        @break
+                                                    @endswitch
+                                                </th>
+                                                @foreach($numbers as $keyy=>$number)
+                                                    <td class="text-2xl p-2 mx-auto text-center @if((array_search($number,$call_history,true)!=null)) text-red-500 text-2xl font-semibold border-danger border-2 @endif  "> @if($key==2 && $keyy==2) <span class="text-xs font-medium text-red-500 text-2xl font-semibold border-danger border-2"> FREE</span>  @else {{$number}} @endif</td>
+                                                @endforeach
+
+                                            </tr>
+                                        @endforeach
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                        @endif
+                    </div>
+
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Winner</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            window.addEventListener('show-modal', event => {
+                $('#exampleModal').modal('show');
+            });
+
+            window.addEventListener('hide-modal', event => {
+                $('#exampleModal').modal('hide');
+            });
+        });
+    </script>
 
     <script>
 
