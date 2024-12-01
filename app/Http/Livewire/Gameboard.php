@@ -8,47 +8,55 @@ use Livewire\Component;
 
 class Gameboard extends Component
 {
-
-
+    protected $listeners = ['runAuto'];
     public $random_number_array, $call_index=0, $call_history, $selected_cards;
+
+
+    public function runAuto() {
+        // Your method logic here // For example: $this->doSomething();
+       $this->emit($this->nextCall());
+     }
+
 
 
 public function nextCall(){
     $this->call_index++;
     $this->call_history[]=$this->random_number_array[$this->call_index];
-
+    $this->dispatchBrowserEvent('play-audio', ['url' => '/assets/audio/chimes/chime.mp3']);
 
 
 }
-public function regeneraterandomarray(){
-    $random_number_array = range(1, 75);
-    shuffle($random_number_array );
-    $this->random_number_array = array_slice($random_number_array ,0,75);
-    $this->call_history[]=$this->random_number_array[0];
-    $this->selected_cards=Card::where('is_active',true)->where('user_id',Auth::user()->id)->get();
-}
 
-public function resetGame(){
-    $this->call_index=0;
-    $this->call_history=[];
-    $this->regeneraterandomarray();
+
+public function newGame(){
     $cards= Card::all();
     foreach ($cards as $card){
         $card->is_active=false;
         $card->save();
     }
-}
-public function newGame(){
-    $this->call_index=0;
     $this->call_history=[];
-    $this->regeneraterandomarray();
+    $this->call_index=0;
+
  $this->redirect('/card');
 
 }
 
+
+
     public function mount()
     {
-        $this->regeneraterandomarray();
+        // get selected cards
+        $this->selected_cards=session()->get('selected_cards',[]);
+      $this->random_number_array=  session()->get('random_numbers', []);
+        $this->call_index=0;
+        $this->call_history=[];
+        $this->call_history[]=$this->random_number_array[$this->call_index];
+        // get generated random numbers
+        //else goto cards
+
+
+
+
     }
 
 

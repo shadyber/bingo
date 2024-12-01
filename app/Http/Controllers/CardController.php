@@ -29,11 +29,28 @@ class CardController extends Controller
      return $card;
  }
 
- public function togglecard(Request $request){
+    public function regeneraterandomarray(){
+        $random_number_array = range(1, 75);
+        shuffle($random_number_array );
+        $random_number_array = array_slice($random_number_array ,0,75);
+     return$random_number_array;
+
+
+    }
+
+
+    public function togglecard(Request $request){
     $card=Card::find($request->input('card_id'));
     $card->is_active=!$card->is_active;
     $card->save();
     return redirect()->back();
+ }
+ public function startnewgame(Request $request){
+     $selected_cards=Card::activeCardsByAgent();
+     session()->put('selected_cards',$selected_cards);
+    $random_numbers=$this->regeneraterandomarray();
+    session()->put('random_numbers',$random_numbers);
+   return redirect()->route('dashboard');
  }
 
     /**

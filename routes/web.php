@@ -23,7 +23,9 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::resource('/card',\App\Http\Controllers\CardController::class);
+
     Route::post('/toggelcard',[\App\Http\Controllers\CardController::class,'togglecard'])->name('toggelcard');
+    Route::post('/newgame   ',[\App\Http\Controllers\CardController::class,'startnewgame'])->name('startnewgame');
 
     Route::get('/dashboard', function () {
 
