@@ -22,13 +22,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::resource('/card',\App\Http\Controllers\CardController::class);
+    Route::post('/toggelcard',[\App\Http\Controllers\CardController::class,'togglecard'])->name('toggelcard');
+
     Route::get('/dashboard', function () {
 
-        return view('dashboard')->with('random_number_array');
+        return view('dashboard');
 
 
 
     })->name('dashboard');
 
-    Route::resource('/card',\App\Http\Controllers\CardController::class);
 });

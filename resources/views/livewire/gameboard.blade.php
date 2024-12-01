@@ -3,9 +3,9 @@
 
 
         <div class="col-md-9 ">
-            <div class="rightside">
+            <div class="rightside p-2 m-3">
 
-                <table class="table  w-full  p-4 ml-3 text-center mb-4 text-2xl center">
+                <table class="table  w-full   text-center mb-4 text-2xl center">
 
                     <tbody>
 
@@ -113,9 +113,32 @@
                         <h1  class="text-2xl font-semibold rounded-full bg-gray-200 text-center">{{$random_number_array[$call_index]}}</h1>
                         <p class="card-text">Total Call</p>
                         <h1  class="text-2xl font-semibold rounded-full bg-gray-200 text-center">{{$call_index+1}}</h1>
+
+
+                        <div class="input-group">
+                            <label for="selected_cards">Selected Cards</label>
+                            <select name="selected_cards" id="selected_cards" class="form-control">
+                                @foreach($selected_cards as $selectedcard)
+                                    <option value=""> {{$selectedcard->card_name}}</option>
+                                    @endforeach
+
+                            </select>
+                        </div>
                         <a href="#"  class="btn block btn-success" wire:click="newGame">New Game</a>
-                        <a href="#" class="card-link btn-outline-success btn block">Auto Play</a>
-                        <a href="#" class="card-link btn-outline-success btn block"  wire:click="nextCall">Next Call</a>
+                        <a href="#" class="card-link btn-primary btn block">Auto Play</a>
+                        <a href="#" class="card-link btn-secondary btn block"  wire:click="nextCall">Next Call</a>
+
+                        <div class="input-group">
+                            <label for="selected_cards">Selected Cards</label>
+                            <select name="selected_cards" id="selected_cards" class="form-control">
+                                @foreach($selected_cards as $selectedcard)
+                                    <option value=""> {{$selectedcard->card_name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        <a href="#" class="btn block btn-danger btn-lg">Check Winner</a>
+
                     </div>
                 </div>
 

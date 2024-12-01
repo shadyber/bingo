@@ -13,19 +13,7 @@
 
 <div class="container text-gray-600">
     <div class="row">
-      <div class="col-md-6">
-          <form class="max-w-sm mx-auto" action="card" method="post" enctype="multipart/form-data">
-              @csrf
-              <div class="mb-3 form-group">
-                  <label for="cardsqnt" class="block mb-2 text-sm ">Number of Cards to Generate</label>
-                  <input type="number" id="cardsqnt" name="cardsqnt" value="10" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              </div>
 
-              <div class="mb-3 form-group">
-                <button class="btn btn-lg btn-warning "> Generate new Cards</button>
-              </div>
-          </form>
-      </div>
         <div class="col-md-6">
 
             <script type="text/javascript">
@@ -54,13 +42,28 @@
                 }
             </script>
 
-            <a href="javascript:PrintElem('#cards')" class="btn btn-lg btn-primary"> <i class="fa fa-print"></i>Print All Cards</a>
-            <a href="#" class="btn btn-lg btn-danger"> <i class="fa fa-trash"></i>Delete All Cards</a>
+            <a href="javascript:PrintElem('#cards')" class="btn btn-lg btn-primary p-1 m-1"> <i class="fa fa-print"></i>Print All Cards</a>
 
+           
+
+        </div>
+        <div class="col-md-6 ">
+
+                <form class="max-w-sm mx-auto" action="card" method="post" >
+                    @csrf
+                    <div class="mb-3 form-group">
+                        <label for="cardsqnt" class="block mb-2 text-sm ">Number of Cards to Generate</label>
+                        <input type="number" id="cardsqnt" name="cardsqnt" value="10" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+
+                    <div class="mb-3 form-group">
+                        <button class="btn btn-lg btn-warning "> Generate new Cards</button>
+                    </div>
+                </form>
 
         </div>
     </div>
-
+    <hr>
 <div class="row" id="cards">
         @foreach($cards as $card)
 
@@ -69,12 +72,20 @@
 
         <div class="max-w-sm pb-3 mb-4   border border-gray-200 rounded-lg  ">
   <h3 class="text-2xl   font-semibold"> Card Name : {{$card->card_name}}</h3>
-            <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                <span class="w-2 h-2 me-1 rounded-full"></span>
-                Available
-            </span>
+            <form action="toggelcard" method="post"
 
-        <table class="table table-dark w-3/4 text-2xl p-4 ml-3 text-center mb-4  center">
+            >
+                @csrf
+                <input type="hidden" name="card_id" value="{{$card->id}}">
+                @if($card->is_active==0)
+                    <button class="btn btn-sm btn-primary"> Add</button>
+                @else
+                    <button class="btn btn-sm btn-danger"> Remove</button>
+                @endif
+            </form>
+
+
+        <table class="table  w-3/4 text-2xl p-4 ml-3 text-center mb-4  center">
 
             <tbody>
 
@@ -103,8 +114,8 @@
                    @break
                @endswitch
            </th>
-                @foreach($numbers as $number)
-             <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold">{{$number}}</td>
+                @foreach($numbers as $keyy=>$number)
+             <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold"> @if($key==2 && $keyy==2) <span class="text-xs font-medium rounded-full "> FREE</span>  @else {{$number}} @endif</td>
                 @endforeach
 
             </tr>

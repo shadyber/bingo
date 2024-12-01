@@ -3,13 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\Card;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Gameboard extends Component
 {
 
 
-    public $random_number_array, $call_index=0, $call_history;
+    public $random_number_array, $call_index=0, $call_history, $selected_cards;
 
 
 public function nextCall(){
@@ -24,17 +25,25 @@ public function regeneraterandomarray(){
     shuffle($random_number_array );
     $this->random_number_array = array_slice($random_number_array ,0,75);
     $this->call_history[]=$this->random_number_array[0];
+    $this->selected_cards=Card::where('is_active',true)->where('user_id',Auth::user()->id)->get();
 }
 
+public function resetGame(){
+    $this->call_index=0;
+    $this->call_history=[];
+    $this->regeneraterandomarray();
+    $cards= Card::all();
+    foreach ($cards as $card){
+        $card->is_active=false;
+        $card->save();
+    }
+}
 public function newGame(){
     $this->call_index=0;
     $this->call_history=[];
     $this->regeneraterandomarray();
-   $cards= Card::all();
-   foreach ($cards as $card){
-       $card->is_active=false;
-       $card->save();
-   }
+ $this->redirect('/card');
+
 }
 
     public function mount()

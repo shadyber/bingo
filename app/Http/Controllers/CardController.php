@@ -29,6 +29,13 @@ class CardController extends Controller
      return $card;
  }
 
+ public function togglecard(Request $request){
+    $card=Card::find($request->input('card_id'));
+    $card->is_active=!$card->is_active;
+    $card->save();
+    return redirect()->back();
+ }
+
     /**
      * Display a listing of the resource.
      *
