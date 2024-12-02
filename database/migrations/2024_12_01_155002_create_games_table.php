@@ -18,7 +18,8 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->longText('selected_cards');
             $table->longText('random_numbers');//akaanswers
-
+            $table->double('card_price')->default('10');
+            $table->double('agent_commission')->default(25);
             $table->string('game_state')->default('started');
             $table->timestamps();
         });

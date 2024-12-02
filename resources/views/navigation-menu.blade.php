@@ -17,12 +17,6 @@
                     </x-nav-link>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('card.index') }}" :active="request()->routeIs('card.*')">
-                        {{ __('Cards') }}
-                    </x-nav-link>
-                </div>
 
                 @if(\App\Models\Game::getGameState()=="started")
                     <form action="/endgame" method="post">
@@ -35,7 +29,14 @@
                 </div>
 
                  </form>
-                    @endif
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('starter') }}" :active="request()->routeIs('starter')">
+                            {{ __('New Game') }}
+                        </x-nav-link>
+                    </div>
+
+                @endif
 
 
             </div>

@@ -26,6 +26,7 @@ Route::middleware([
 
     Route::post('/toggelcard',[\App\Http\Controllers\CardController::class,'togglecard'])->name('toggelcard');
     Route::post('/newgame   ',[\App\Http\Controllers\CardController::class,'startnewgame'])->name('startnewgame');
+ Route::get('/newgame',\App\Http\Livewire\GameControll::class)->name("starter");
     Route::post('/endgame   ',[\App\Http\Controllers\CardController::class,'endgame'])->name('endgame');
 
     Route::get('/dashboard', function () {

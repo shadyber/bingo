@@ -45,18 +45,6 @@
 
             <a href="javascript:PrintElem('#cards')" class="btn btn-lg btn-primary p-1 m-1"> <i class="fa fa-print"></i>Print All Cards</a>
 
-            @if(count($cards)>0&& \App\Models\Game::getGameState()!="started")
-            <form class="max-w-sm mx-auto" action="newgame" method="post" >
-                @csrf
-
-
-                <div class="mb-3 form-group">
-                    <button class="btn btn-lg btn-warning "> Start New Game</button>
-                </div>
-            </form>
-
-                @endif
-
 
         </div>
         <div class="col-md-6 ">

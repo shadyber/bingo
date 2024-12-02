@@ -7,9 +7,17 @@
 
     <div class="items-center">
 
+        @if(\Illuminate\Support\Facades\Auth::user()->id==1)
+
+@livewire('admin-dashboard')
+
+ @else
+
+
+
 
     @if(session()->get('selected_cards')==[])
-      <a href="/card" class="btn btn-lg btn-info">Select Cards to Play</a>
+      <a href="/newgame" class="btn btn-lg btn-info">Select Cards to Play</a>
     @elseif(session()->get('random_numbers')==[])
 
             <form class="max-w-sm mx-auto" action="newgame" method="post" >
@@ -20,11 +28,11 @@
                     <button class="btn btn-lg btn-warning "> Start New Game</button>
                 </div>
             </form>
-    @else
+       @else
          @livewire('gameboard')
        @endif
 
-
+@endif
 
     </div>
 
