@@ -10,16 +10,14 @@ use Livewire\Component;
 class Gameboard extends Component
 {
     protected $listeners = ['runAuto'];
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game, $card_to_check, $selected_card_id, $auto_call=true;
-
-
-
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game, $card_to_check, $selected_card_id, $auto_call=false,$game_begin=false;
 
     public function showModal() {
     $this->card_to_check=Card::where('id',$this->selected_card_id)->get();
         $this->dispatchBrowserEvent('show-modal');
 
     }
+
     public function hideModal() { $this->dispatchBrowserEvent('hide-modal'); }
 
     public function runAuto() {
@@ -27,6 +25,22 @@ class Gameboard extends Component
        $this->emit($this->nextCall());
      }
 
+
+     public function beginGame(){
+
+        $this->call_index=0;
+        $this->emit('playAudio');
+        $this->game_begin=true;
+
+
+     }
+     public function playAudio(){
+         $this->audioUrl = asset('/assets/audio/chimes/'.$this->random_number_array[$this->call_index].'.ogg');// Construct the URL based on the random number
+
+         // Dispatch the browser event with the audio URL
+         $this->dispatchBrowserEvent('playAudio', ['url' => $this->audioUrl]);
+
+     }
 
 
 public function nextCall(){
@@ -45,9 +59,6 @@ public function nextCall(){
         $this->dispatchBrowserEvent('playAudio', ['url' => $this->audioUrl]);
 
     }
-
-
-
 
 
 
@@ -75,10 +86,8 @@ public function nextCall(){
   //else goto cards
 
 
-
-
     }
- 
+
 
     public function render()
     {

@@ -121,17 +121,6 @@ if($selected_cards!="[]"){
  }
 
 
- public function endGame(){
-     $game=Game::lastActiveGame();
-     if($game){
-       $game->game_state="finished";
-     }
-     $game->save();
-     session()->remove("selected_cards");
-     session()->remove("random_numbers");
-
-     return redirect()->route("card.index")->with(["message","Game Ended"]);
- }
     /**
      * Display a listing of the resource.
      *

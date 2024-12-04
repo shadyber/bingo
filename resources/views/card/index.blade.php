@@ -48,7 +48,8 @@
 
         </div>
         <div class="col-md-6 ">
-   @if(\App\Models\Game::getGameState()!="started")
+
+            @if(\App\Models\Game::getGameState()!="started")
                 <form class="max-w-sm mx-auto" action="card" method="post" >
                     @csrf
                     <div class="mb-3 form-group">
@@ -72,7 +73,7 @@
 
 
         <div class="max-w-sm pb-3 mb-4   border border-gray-200 rounded-lg  ">
-  <h3 class="text-2xl   font-semibold"> Card Name : {{$card->card_name}}</h3>
+             <h3 class="text-2xl   font-semibold"> Card Name : {{$card->card_name}}</h3>
             <form action="toggelcard" method="post"
 
             >
