@@ -10,27 +10,27 @@ use Livewire\Component;
 class Gameboard extends Component
 {
     protected $listeners = ['runAuto'];
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game, $card_to_check, $selected_card_id, $auto_call=false,$game_begin=false;
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game,$selected_card_id, $auto_call=false,$game_begin=false;
 
-    public function showModal() {
-    $this->card_to_check=Card::where('id',$this->selected_card_id)->get();
-        $this->dispatchBrowserEvent('show-modal');
 
-    }
 
-    public function hideModal() { $this->dispatchBrowserEvent('hide-modal'); }
 
     public function runAuto() {
-
+        $this->auto_call=true;
        $this->emit($this->nextCall());
      }
 
+public function showModal(){
+        $this->auto_call=false;
+        $this->dispatchBrowserEvent('stopInterval');
 
+}
      public function beginGame(){
 
         $this->call_index=0;
         $this->emit('playAudio');
         $this->game_begin=true;
+
 
 
      }
@@ -63,8 +63,6 @@ public function nextCall(){
 
 
 }
-
-
 
 
     public function mount()
