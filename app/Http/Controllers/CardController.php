@@ -26,7 +26,9 @@ class CardController extends Controller
      {
          shuffle($column);
          $card[] = array_slice($column, 0, 5);
-     } // Set the center space as "FREE" $card[2][2] = 'FREE';
+     }
+     $card[2][2]='FREE';
+     // Set the center space as "FREE" $card[2][2] = 'FREE';
      return $card;
  }
 

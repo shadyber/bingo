@@ -12,6 +12,44 @@ class Gameboard extends Component
     protected $listeners = ['runAuto'];
     public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game,$selected_card_id, $auto_call=false,$game_begin=false;
 
+    function checkBingo($bingoCard) {
+        // Check rows
+
+        $calledNumbers=$this->call_history;
+         foreach ($bingoCard as $row) {
+             if (count(array_intersect($row, $calledNumbers)) === 5)
+             {
+                 dd('true');
+                 return true;
+             }
+         }
+         // Check columns
+
+        for ($col = 0; $col < 5; $col++)
+        {
+            $column = array_column($bingoCard, $col);
+            if (count(array_intersect($column, $calledNumbers)) === 5)
+            {
+                dd('true');
+                return true;
+            }
+        }
+        // Check diagonals
+        $diagonal1 = []; $diagonal2 = [];
+        for ($i = 0; $i < 5; $i++)
+        {
+            $diagonal1[] = $bingoCard[$i][$i];
+            $diagonal2[] = $bingoCard[$i][4 - $i];
+        }
+        if (count(array_intersect($diagonal1, $calledNumbers)) === 5 || count(array_intersect($diagonal2, $calledNumbers)) === 5)
+        {
+
+            dd('true');
+            return true;
+        }
+        dd('false');
+        return false;
+    }
 
 
 

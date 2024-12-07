@@ -180,7 +180,8 @@
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <a href="#" class="btn block btn-danger" wire:click="showModal({{$selectedcard->id}})" > Check Pattern</a>
+                        <a href="#" class="btn block btn-danger" wire:click="checkBingo(
+{{$selectedcard->numbers}})" > Check Pattern</a>
 
                     </div>
 
