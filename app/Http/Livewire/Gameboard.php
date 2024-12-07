@@ -9,9 +9,18 @@ use Livewire\Component;
 
 class Gameboard extends Component
 {
-    protected $listeners = ['runAuto'];
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game,$selected_card_id, $auto_call=false,$game_begin=false;
+    protected $listeners = ['runAuto','openModal', 'closeModal'];
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game,$selected_card_id,$isBingo, $auto_call=false,$game_begin=false;
+    public $isOpen = false;
 
+    public function openModal()
+    {
+        $this->isOpen = true;
+    }
+    public function closeModal()
+    {
+        $this->isOpen = false;
+    }
     function checkBingo($bingoCard) {
         // Check rows
 
@@ -19,7 +28,9 @@ class Gameboard extends Component
          foreach ($bingoCard as $row) {
              if (count(array_intersect($row, $calledNumbers)) === 5)
              {
-                 dd('true');
+                 $this->isBingo = true;
+
+                 $this->emit('openModal');
                  return true;
              }
          }
@@ -30,7 +41,9 @@ class Gameboard extends Component
             $column = array_column($bingoCard, $col);
             if (count(array_intersect($column, $calledNumbers)) === 5)
             {
-                dd('true');
+                $this->isBingo = true;
+
+                $this->emit('openModal');
                 return true;
             }
         }
@@ -44,10 +57,14 @@ class Gameboard extends Component
         if (count(array_intersect($diagonal1, $calledNumbers)) === 5 || count(array_intersect($diagonal2, $calledNumbers)) === 5)
         {
 
-            dd('true');
+            $this->isBingo = true;
+
+
+            $this->emit('openModal');
             return true;
         }
-        dd('false');
+        $this->isBingo = false;
+
         return false;
     }
 
@@ -58,11 +75,6 @@ class Gameboard extends Component
        $this->emit($this->nextCall());
      }
 
-public function showModal(){
-        $this->auto_call=false;
-        $this->dispatchBrowserEvent('stopInterval');
-
-}
      public function beginGame(){
 
         $this->call_index=0;
