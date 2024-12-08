@@ -72,19 +72,19 @@
                       <p class="pl-3 rounded-full bg-gray-200 text-center items-center font-semibold">
                           <i class="display-6">
                               @switch($call=$random_number_array[$call_index])
-                                  @case($call<15)
+                                  @case($call<16)
                                     B
                                   @break
 
-                                  @case($call<30)
+                                  @case($call<31)
                                    I
                                   @break
 
-                                  @case($call<45)
+                                  @case($call<46)
                                    N
                                   @break
 
-                                  @case($call<60)
+                                  @case($call<61)
                                     G
                                   @break
                                   @case($call<76)
@@ -219,10 +219,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-
+                <div class="modal-body ">
+<div class="container">
+<div class="row p-2 m-2">
                     @if($card_to_check)
-
+<div class="col-md-6 p-2 m-2">
                         <table>
                             <tr>
                                 <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">B</td>
@@ -242,19 +243,36 @@
                                 </tr>
                             @endfor
                         </table>
+</div>
                     @else
-                        No Card Selected to CHeck
+                        <div class="col-md-12">
+                        No Card Selected to Check
+                        </div>
                     @endif
                     @if($isBingo)
-                        Winner
+                              <div class="col-md-6">
+                            <div class="trophy">
+                                <img src="https://i.ibb.co/kVZ3CN6/trophy.png" alt="trophy" width="64px">
+                            </div>
+                            <div class="text">
+                                <h1>Award</h1>
+                            </div>
+                            <script>
+                                confetti.start();
+                            </script>
+                                        <div class="col-md-6">
                     @else
-                        Not Winner
+                                                <div class="col-md-6">
+                 <p class="display-6 align-bottom">Not Win </p>
+                                                    <div class="col-md-6">
                     @endif
 
 
 
 
                 </div>
+                                                </div>
+                                        </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
