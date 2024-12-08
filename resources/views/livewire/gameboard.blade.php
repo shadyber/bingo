@@ -142,7 +142,7 @@
                             <div class="bg-gray-200">
                                 @if(count($selected_cards)>0)
                                     @foreach($selected_cards as $selected_card)
-                                        <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})"> Card:  {{$selected_card->card_name}}</a>
+                                        <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})" > Card:  {{$selected_card->card_name}}</a>
                                     @endforeach
 
                                 @else
@@ -282,9 +282,10 @@
     </div>
 
 
-
-
-
+</div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -325,6 +326,7 @@
 
         document.getElementById('startButton').addEventListener('click', startInterval);
         document.getElementById('stopButton').addEventListener('click', stopInterval);
+        document.getElementById('showResultButon').addEventListener('click', stopInterval);
         let interval = null;
 
         function startInterval() {
