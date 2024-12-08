@@ -88,7 +88,8 @@
                 <button class="btn btn-lg btn-warning "> Start New Game</button>
             </div>
         </form>
-
+    @else
+        <a href="/card" class="btn btn-lg btn-danger btn-outline-dark" >Manage Cards </a>
     @endif
 
 </div>

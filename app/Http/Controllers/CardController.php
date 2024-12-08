@@ -29,6 +29,7 @@ class CardController extends Controller
      }
      $card[2][2]='FREE';
      // Set the center space as "FREE" $card[2][2] = 'FREE';
+
      return $card;
  }
 
@@ -67,7 +68,8 @@ if($selected_cards!="[]"){
         $random_number_array = range(1, 75);
         shuffle($random_number_array );
         $random_number_array = array_slice($random_number_array ,0,75);
-     return$random_number_array;
+
+     return $random_number_array;
 
 
     }
@@ -168,7 +170,7 @@ $cardjson=json_encode(self::generateCard());
 $card =new Card();
 
   $card->user_id=Auth::user()->id;
-  $card->card_name=Auth::user()->id."/".$i;
+  $card->card_name="".$i;
   $card->numbers=$cardjson;
   $card->is_active=false;
   $card->save();

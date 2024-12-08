@@ -172,9 +172,23 @@
                         <a href="#" class="btn btn-info btn-sm" id="nextButton"  wire:click="nextCall">Call Next</a>
                     </div>
                     <div class="col-md-12">
-                      @foreach($selected_cards as $selected_card)
-                            <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})"> Card:  {{$selected_card->card_name}}</a>
-                        @endforeach
+                        <div>
+                            <select name="selct_card_to_chek" id="selectcardtochec" wire:model="card_to_check_id" onchange="hideResultShowCalc()">
+                                <option value="">Select Card to Check</option>
+                                @foreach($selected_cards as $selected_card)
+                                    <option value="{{$selected_card->id}}"> {{$selected_card->card_name}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                       @if($card_to_check_id!=null)
+
+                        <a href="#" id="checkResultButton"  wire:click="checkBingo({{\App\Models\Card::find($card_to_check_id)->numbers}})"  class="btn btn-sm btn-info btn-outline-dark" onclick="showResultHideCalc()">Check Now</a>
+                        <a href="#" id="showResultButon" data-toggle="modal"   data-target="#bingoCheckModal"  class="btn btn-sm btn-info btn-outline-dark ">Show Result </a>
+
+                        @endif
+
+
                     </div>
 
 
@@ -182,8 +196,8 @@
                </div>
 
                 <div class="col-md-3">
-                    <p class="display-6 text-right">Winner Prize</p>
-                   <div class="font-semibold display-4 text-rainbow-animation"> $ETB2000</div>
+                    <p class="display-6 text-right"><span class="text-xs">{{\App\Models\Game::lastActiveGame()->card_price}}ETB </span>  Winner Prize :</p>
+                   <div class="font-semibold display-4 text-rainbow-animation"> $ETB {{\App\Models\Game::winPrize()}} </div>
 
                 </div>
 
@@ -195,51 +209,65 @@
 
 
 
-    <!-- Bottom Right Modal -->
-    <div id="bottom-right-modal" data-modal-placement="bottom-right" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 @if(!$isOpen) hidden @endif w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="modal-header">
-            <a href="#" onclick="closeModal()">X</a>
-        </div>
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <!-- Modal -->
+    <div class="modal fade" id="bingoCheckModal" tabindex="-1" role="dialog" aria-labelledby="bingoCheckModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Check Winner @if($card_to_check_id) {{\App\Models\Card::find($card_to_check_id)->card_name}} @endif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-                <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4">
+                    @if($card_to_check)
 
-@if($card_to_check)
+                        <table>
+                            <tr>
+                                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">B</td>
+                                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">I</td>
+                                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">N</td>
+                                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">G</td>
+                                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">O</td>
 
-    <table>
-       <tr>
-            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">B</td>
-            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">I</td>
-            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">N</td>
-            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">G</td>
-            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">O</td>
-
-        </tr>
- @for($i=0;$i<5;$i++)
-    <tr>
-        @for($j=0;$j<5;$j++)
-                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold"> {{$card_to_check[$j][$i]}}</td>
-        @endfor
-    </tr>
- @endfor
- </table>
-            @else
-                No Card Selected to CHeck
-            @endif
-                                @if($isBingo)
-                            Winner
-                                @else
-            Not Winner
+                            </tr>
+                            @for($i=0;$i<5;$i++)
+                                <tr>
+                                    @for($j=0;$j<5;$j++)
+                                        <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold    @if((array_search($card_to_check[$j][$i],$call_history,true)!=null)||$card_to_check[$j][$i]==$random_number_array[0])
+                                            bg-red-600 text-green-400 rounded-full
+@endif"> {{$card_to_check[$j][$i]}}</td>
+                                    @endfor
+                                </tr>
+                            @endfor
+                        </table>
+                    @else
+                        No Card Selected to CHeck
+                    @endif
+                    @if($isBingo)
+                        Winner
+                    @else
+                        Not Winner
                     @endif
 
 
+
+
                 </div>
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-
+        </div>
     </div>
+
+
+
+
+
+
 
 
 
@@ -296,12 +324,20 @@
         }
 
 
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space')
+            {
+              stopInterval();
+
+            } });
 
         // Start the interval when the page loads //
 
         // Example buttons to start and stop the timer
 
     });
+
+
 </script>
 
 </div>

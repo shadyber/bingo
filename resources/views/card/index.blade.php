@@ -50,23 +50,15 @@
         <div class="col-md-6 ">
 
             @if(\App\Models\Game::getGameState()!="started")
-                <form class="max-w-sm mx-auto" action="card" method="post" >
-                    @csrf
-                    <div class="mb-3 form-group">
-                        <label for="cardsqnt" class="block mb-2 text-sm ">Number of Cards to Generate</label>
-                        <input type="number" id="cardsqnt" name="cardsqnt" value="10" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </div>
+                <div class="mb-3 form-group">
+                    <input type="button" name="btn" value="Generate Cards" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn  btn-danger" />
+                </div>
+           @endif
 
-                    <div class="mb-3 form-group">
-                        <button class="btn btn-lg btn-warning "> Generate new Cards</button>
-                    </div>
-                </form>
-       @endif
 
-        </div>
     </div>
-    <hr>
-<div class="row" id="cards">
+
+    <div class="row" id="cards">
         @foreach($cards as $card)
 
             <div class="col-md-4">
@@ -74,67 +66,94 @@
 
         <div class="max-w-sm pb-3 mb-4   border border-gray-200 rounded-lg  ">
              <h3 class="text-2xl   font-semibold"> Card Name : {{$card->card_name}}</h3>
-            <form action="toggelcard" method="post"
-
-            >
+            <form action="toggelcard" method="post" class="inline-form">
                 @csrf
                 <input type="hidden" name="card_id" value="{{$card->id}}">
                 @if($card->is_active==0)
-                    <button class="btn btn-sm btn-primary"> Add</button>
+                    <button class="btn btn-sm btn-primary"> Add to Game</button>
                 @else
                     <button class="btn btn-sm btn-danger"> Remove</button>
                 @endif
+                <a href="/card/{{$card->id}}/edit" class="btn btn-sm btn-info btn-outline-dark">Edit</a>
+                <a href="#" class="btn btn-sm btn-info btn-outline-dark">Delete</a>
+
             </form>
 
+            <table class="table table-bordered w-full text-center text-xl">
+<tr class="text-2xl text-gray-400 bg-indigo-600">
+    <td>B</td>
+    <td>I</td>
+    <td>N</td>
+    <td>G</td>
+    <td>O</td>
+</tr>
 
-        <table class="table  w-3/4 text-2xl p-4 ml-3 text-center mb-4  center">
-
-            <tbody>
-
-
-            @foreach(json_decode($card->numbers) as $key=>$numbers)
-            <tr class="border-2 border-gray-200 text-2xl p-4 ml-3 text-center mb-4">
-           <th class="bg-indigo-50 rounded-full ">
-               @switch($key)
-                   @case(0)
-                   B
-                   @break
-
-                   @case(1)
-                   I
-                   @break
-
-                   @case(2)
-                   N
-                   @break
-
-                   @case(3)
-                   G
-                   @break
-                   @case(4)
-                   O
-                   @break
-               @endswitch
-           </th>
-                @foreach($numbers as $keyy=>$number)
-             <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold"> @if($key==2 && $keyy==2) <span class="text-xs font-medium rounded-full "> FREE</span>  @else {{$number}} @endif</td>
-                @endforeach
-
-            </tr>
-            @endforeach
-
-
-            </tbody>
-        </table>
-
+         @for($i=0;$i<5;$i++)
+              <tr class="w-4 h-4 border border-2 border-gray-700">
+             @for($j=0;$j<5;$j++)
+                 <td>
+                 {{json_decode($card->numbers)[$j][$i]}}
+                 </td>
+             @endfor
+             </tr>
+            @endfor
+         </table>
         </div>
-</div>
+    </div>
         @endforeach
 </div>
 
 </div>
 
+
+ </div>
+
+    <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @if(\App\Models\Game::getGameState()!="started")
+                <form class="max-w-sm mx-auto" action="card" method="post" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    Confirm Submit
+                </div>
+                <div class="modal-body">
+
+                            @csrf
+                            <div class="mb-3 form-group">
+                                <label for="cardsqnt" class="block mb-2 text-sm ">Number of Cards to Generate</label>
+                                <input type="number" id="cardsqnt" name="cardsqnt" value="10" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success"> Genrate </button>
+                </div>
+
+            </div>
+                </form>
+        @endif
+        </div>
+    </div>
             </div>
         </div>
     </div>
+    <script>
+        $('#submitBtn').click(function() {
+            /* when the button in the form, display the entered values in the modal */
+            $('#lname').text($('#lastname').val());
+            $('#fname').text($('#firstname').val());
+        });
+
+        $('#submit').click(function(){
+            /* when the submit button in the modal is clicked, submit the form */
+            alert('submitting');
+            $('#formfield').submit();
+        });
+    </script>
 </x-app-layout>

@@ -19,6 +19,23 @@
 
 
                 @if(\App\Models\Game::getGameState()=="started")
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="#">
+                            {{ __('Game ID') }} : {{\App\Models\Game::lastActiveGame()->id}}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="#">
+                            {{ __('Price') }} :<span class="text-xs">{{\App\Models\Game::lastActiveGame()->card_price}}ETB </span>
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="#">
+                            {{ __('Created') }} : {{\App\Models\Game::lastActiveGame()->created_at->diffForHumans()}}
+                        </x-nav-link>
+                    </div>
                     <form action="/endgame" method="post">
                         @csrf
 
@@ -29,6 +46,7 @@
                 </div>
 
                  </form>
+
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link href="{{ route('starter') }}" :active="request()->routeIs('starter')">
