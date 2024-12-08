@@ -20,6 +20,7 @@ class Gameboard extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+        return;
     }
     function checkBingo($bingoCard) {
         // Check rows
@@ -64,7 +65,7 @@ class Gameboard extends Component
             return true;
         }
         $this->isBingo = false;
-
+$this->emit('openModal');
         return false;
     }
 

@@ -180,42 +180,8 @@
                         </select>
                     </div>
                     <div class="col-md-12">
-                        @if($isBingo)
-                            <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-                                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                            <div class="sm:flex sm:items-start">
-                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                                     Congratulation Card Number X
-                                                    </h3>
-                                                    <div class="mt-2">
-                                                        <p class="text-sm text-gray-500">
-                                                            {{$selectedcard->numbers}}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                            <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" wire:click="closeModal">
-                                                Close
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 
-                        @else
-
-                            other modal
-                               @endif
 
                             <a href="#" class="btn block btn-danger"  wire:click="checkBingo({{$selectedcard->numbers}})" > Check Pattern</a>
 
@@ -233,9 +199,57 @@
 
 
 
+
         </div>
 
-<audio id="myAudio"></audio>
+
+<div class="container items-center">
+
+
+    <!-- Bottom Right Modal -->
+    <div id="bottom-right-modal" data-modal-placement="bottom-right" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 @if(!$isOpen) hidden @endif w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                      Patter Check
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg
+                     text-sm w-8 h-8 ms-auto inline-flex justify-center items-center
+                     dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="bottom-right-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" wire:click="closeModal">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only" onclick="closeModal()">Continue Game</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4">
+
+                    @if($isBingo)
+                Winner
+                    @else
+Not Winner
+                    @endif
+
+
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button data-modal-hide="bottom-right-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  onclick="closeModal()">Continue Game</button>
+                    <button data-modal-hide="bottom-right-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Discard This Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    <audio id="myAudio"></audio>
     <style>
         .text-rainbow-animation {
             font-family:arial black;
@@ -265,6 +279,8 @@
         audio.src = event.detail.url;
         audio.play();
     });
+
+
 
 
         document.getElementById('startButton').addEventListener('click', startInterval);
