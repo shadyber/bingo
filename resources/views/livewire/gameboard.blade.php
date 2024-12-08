@@ -141,9 +141,10 @@
 
                             <div class="bg-gray-200">
                                 @if(count($selected_cards)>0)
-                                    @foreach($selected_cards as $selectedcard)
-                                        <span class="inline bg-success p-1 m-1 rounded-full"> {{$selectedcard->card_name}}</span>
+                                    @foreach($selected_cards as $selected_card)
+                                        <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})"> Card:  {{$selected_card->card_name}}</a>
                                     @endforeach
+
                                 @else
                                     <p class="text-red-500 text-2xl"> Must Select a Cards to Start Game </p>
                                     {{ session()->flash('message', 'You have to select card to start a game.')}}
@@ -171,21 +172,11 @@
                         <a href="#" class="btn btn-info btn-sm" id="nextButton"  wire:click="nextCall">Call Next</a>
                     </div>
                     <div class="col-md-12">
-                        <select name="selected_cards" id="selected_cards" class="form-control" wire:model="selected_card_id">
-                            <option value="">Select Card to Check</option>
-                            @foreach($selected_cards as $selectedcard)
-                                <option value="{{$selectedcard->id}}"> {{$selectedcard->card_name}}</option>
-                            @endforeach
-
-                        </select>
+                      @foreach($selected_cards as $selected_card)
+                            <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})"> Card:  {{$selected_card->card_name}}</a>
+                        @endforeach
                     </div>
-                    <div class="col-md-12">
 
-
-
-                            <a href="#" class="btn block btn-danger"  wire:click="checkBingo({{$selectedcard->numbers}})" > Check Pattern</a>
-
-                    </div>
 
                  </div>
                </div>
@@ -203,50 +194,53 @@
         </div>
 
 
-<div class="container items-center">
-
 
     <!-- Bottom Right Modal -->
     <div id="bottom-right-modal" data-modal-placement="bottom-right" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 @if(!$isOpen) hidden @endif w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-2xl max-h-full">
+        <div class="modal-header">
+            <a href="#" onclick="closeModal()">X</a>
+        </div>
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                      Patter Check
-                    </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg
-                     text-sm w-8 h-8 ms-auto inline-flex justify-center items-center
-                     dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="bottom-right-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" wire:click="closeModal">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                        <span class="sr-only" onclick="closeModal()">Continue Game</span>
-                    </button>
-                </div>
+
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
 
-                    @if($isBingo)
-                Winner
-                    @else
-Not Winner
+@if($card_to_check)
+
+    <table>
+       <tr>
+            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">B</td>
+            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">I</td>
+            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">N</td>
+            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">G</td>
+            <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">O</td>
+
+        </tr>
+ @for($i=0;$i<5;$i++)
+    <tr>
+        @for($j=0;$j<5;$j++)
+                <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold"> {{$card_to_check[$j][$i]}}</td>
+        @endfor
+    </tr>
+ @endfor
+ </table>
+            @else
+                No Card Selected to CHeck
+            @endif
+                                @if($isBingo)
+                            Winner
+                                @else
+            Not Winner
                     @endif
 
 
                 </div>
-                <!-- Modal footer -->
-                <div class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="bottom-right-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  onclick="closeModal()">Continue Game</button>
-                    <button data-modal-hide="bottom-right-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Discard This Card</button>
-                </div>
+
             </div>
-        </div>
+
     </div>
 
-</div>
 
 
     <audio id="myAudio"></audio>

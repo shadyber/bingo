@@ -10,21 +10,24 @@ use Livewire\Component;
 class Gameboard extends Component
 {
     protected $listeners = ['runAuto','openModal', 'closeModal'];
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $game,$selected_card_id,$isBingo, $auto_call=false,$game_begin=false;
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards,$card_to_check, $game,$isBingo, $auto_call=false,$game_begin=false;
     public $isOpen = false;
+
 
     public function openModal()
     {
         $this->isOpen = true;
     }
+
+
     public function closeModal()
     {
         $this->isOpen = false;
-        return;
+
     }
     function checkBingo($bingoCard) {
         // Check rows
-
+$this->card_to_check=$bingoCard;
         $calledNumbers=$this->call_history;
          foreach ($bingoCard as $row) {
              if (count(array_intersect($row, $calledNumbers)) === 5)
