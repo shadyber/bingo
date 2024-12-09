@@ -10,7 +10,7 @@ use function Pest\Laravel\json;
 class Game extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','selected_cards','random_numbers','game_state'];
+    protected $fillable=['user_id','selected_cards','random_numbers','game_state','agent_commission','card_price'];
 
     public static  function getGameState(){
         $game=Game::where('user_id',Auth::user()->id)->get()->last();
@@ -42,8 +42,12 @@ class Game extends Model
             return $prize;
         }else{
             $cards=json_decode($game->selected_cards);
+            $number_of_cards=count($cards);
+            $total=$number_of_cards*$game->card_price;
+            $prize=$total-($total*$game->agent_commission);
 
-$prize=(count($cards)*$game->card_price)*$game->agent_commission;
+
+
 return $prize;
         }
 

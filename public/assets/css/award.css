@@ -1,16 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800;900&display=swap');
 
 
-body {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: hsl(0, 0%, 94%);
-}
-
-.content {}
 
 .content .trophy img {
     display: block;
@@ -49,10 +39,4 @@ body {
     color: #222324;
     text-shadow: 8px 0px 0px #FABE2C;
 }
-#developerPra {
-    position: fixed;
-    bottom: 4rem;
-    right: 4rem;
-    font-size: 4rem;
-    color: rgba(0, 0, 0, 0.7);
-}
+

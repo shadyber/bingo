@@ -55,9 +55,12 @@
 
     <hr>
 
-    <form class="max-w-sm mx-auto">
+    @if(count(\App\Models\Card::agentCards())>0&& \App\Models\Game::getGameState()!="started")
+        <form class="max-w-sm mx-auto" action="newgame" method="post" >
+            @csrf
+
         <label for="game_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Game Type</label>
-        <select id="game_type" wire:model="game_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select id="game_type" name="game_type"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="">Select Game Type </option>
             <option selected value="0.05">Type 1 (5%)</option>
             <option value="0.1">Game Type 2 ( 10%)</option>
@@ -72,8 +75,8 @@
         </select>
 
 
-        <label for="game_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Card Price</label>
-        <select id="game_type" wire:model="card_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <label for="card_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Card Price</label>
+        <select id="card_price" name="card_price"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
             <option  value="">Card Price </option>
             <option  value="10">10 Birr </option>
@@ -81,29 +84,26 @@
             <option value="30">30 Birr</option>
             <option value="40">40 Birr </option>
             <option value="50">50 Birr</option>
-            <option value="50">60 Birr</option>
-            <option value="50">70 Birr</option>
-            <option value="50">80 Birr</option>
-            <option value="50">90 Birr</option>
-            <option value="50">100 Birr</option>
-            <option value="50">200 Birr</option>
-            <option value="50">300 Birr</option>
-            <option value="50">400 Birr</option>
-            <option value="50">500 Birr</option>
-            <option value="50">1000 Birr</option>
+            <option value="70">60 Birr</option>
+            <option value="70">70 Birr</option>
+            <option value="80">80 Birr</option>
+            <option value="90">90 Birr</option>
+            <option value="100">100 Birr</option>
+            <option value="200">200 Birr</option>
+            <option value="300">300 Birr</option>
+            <option value="400">400 Birr</option>
+            <option value="500">500 Birr</option>
+            <option value="1000">1000 Birr</option>
         </select>
 
 
 
-    </form>
 
-    @if(count(\App\Models\Card::agentCards())>0&& \App\Models\Game::getGameState()!="started")
-        <form class="max-w-sm mx-auto" action="newgame" method="post" >
-            @csrf
+
 
 
             <div class="mb-3 form-group">
-                <button class="btn btn-lg btn-warning "> Start New Game</button>
+                <button class="btn btn-lg btn-warning " type="submit"> Start New Game</button>
             </div>
         </form>
     @else
