@@ -21,5 +21,18 @@ class DatabaseSeeder extends Seeder
         'email' => 'admin@rootsystem.com',
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' // password
        ]);
+
+        \App\Models\Agent::factory()->create([
+            'name' => 'Main Agent',
+            'tel' => '994',
+            'city' => 'Addis Ababa',
+            'user_id' => '1',
+            'location'=>'',
+            'is_active'=>false
+        ]);
+
+
+
+
     }
 }

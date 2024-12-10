@@ -10,7 +10,7 @@ use function Pest\Laravel\json;
 class Game extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','selected_cards','random_numbers','game_state','agent_commission','card_price'];
+    protected $fillable=['user_id','selected_cards','random_numbers','game_state','agent_commission','card_price','cards_qnt'];
 
     public static  function getGameState(){
         $game=Game::where('user_id',Auth::user()->id)->get()->last();
@@ -23,7 +23,9 @@ class Game extends Model
         }
     }
 
-
+public function user(){
+       return $this->belongsTo(User::class);
+}
     public static function  lastActiveGame(){
         $game=Game::where('user_id',Auth::user()->id)->where("game_state","started")->get()->last();
 
@@ -32,6 +34,7 @@ class Game extends Model
             return $game;
         }
     }
+
 
     public static function winPrize(){
         $prize=0;

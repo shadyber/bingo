@@ -8,7 +8,7 @@
 
                     <div class="col-md-6 p-2 m-2">
                         <label for="card_name">Card Name</label>
-                        <input type="text" name="card_name">
+                        <input type="text" name="card_name" required>
                     </div>
 
                 <table class="w-full text-2xl text-center p-2 m-1">
@@ -21,28 +21,28 @@
                     </tr>
 
                     <tr>
-                        <td><input type="number" name="cell00" maxlength="4" min="1" max="15"></td>
-                        <td><input type="number" name="cell10"  maxlength="4" min="16" max="30"></td>
-                        <td><input type="number" name="cell20" min="31" max="45"></td>
-                        <td><input type="number" name="cell30" min="46" max="60"></td>
-                        <td><input type="number" name="cell40" min="61" max="75"></td>
+                        <td><input type="number" name="cell00" maxlength="4" min="1" max="15" required></td>
+                        <td><input type="number" name="cell10"  maxlength="4" min="16" max="30" required></td>
+                        <td><input type="number" name="cell20" maxlength="4" min="31" max="45" required></td>
+                        <td><input type="number" name="cell30" maxlength="4" min="46" max="60" required></td>
+                        <td><input type="number" name="cell40" maxlength="4" min="61" max="75" required></td>
 
                     </tr>
                     <tr>
-                        <td><input type="number" name="cell01" maxlength="4" min="1" max="15"></td>
-                        <td><input type="number" name="cell11"  maxlength="4" min="16" max="30"></td>
-                        <td><input type="number" name="cell21" min="31" max="45"></td>
-                        <td><input type="number" name="cell31" min="46" max="60"></td>
-                        <td><input type="number" name="cell41" min="61" max="75"></td>
+                        <td><input type="number" name="cell01" maxlength="4" min="1" max="15" required></td>
+                        <td><input type="number" name="cell11"  maxlength="4" min="16" max="30" required></td>
+                        <td><input type="number" name="cell21" maxlength="4" min="31" max="45" required></td>
+                        <td><input type="number" name="cell31" maxlength="4" min="46" max="60" required></td>
+                        <td><input type="number" name="cell41" maxlength="4" min="61" max="75" required></td>
 
                     </tr>
     <tr>
-                        <td><input type="number" name="cell02" maxlength="4" min="1" max="15"></td>
-                        <td><input type="number" name="cell12"  maxlength="4" min="16" max="30"></td>
+                        <td><input type="number" name="cell02" maxlength="4" min="1" max="15"  required></td>
+                        <td><input type="number" name="cell12"  maxlength="4" min="16" max="30"  required></td>
                          <td><input type="number" name="cell22" value="FREE" disabled class="bg-danger" maxlength="4" min="16" max="30"></td>
 
-                        <td><input type="number" name="cell32" min="46" max="60"></td>
-                        <td><input type="number" name="cell42" min="61" max="75"></td>
+                        <td><input type="number" name="cell32" maxlength="4" min="46" max="60" required></td>
+                        <td><input type="number" name="cell42" maxlength="4" min="61" max="75" required></td>
 
                     </tr>
 
@@ -51,24 +51,22 @@
 
 
                     <tr>
-                        <td><input type="number" name="cell03" maxlength="4" min="1" max="15"></td>
-                        <td><input type="number" name="cell13"  maxlength="4" min="16" max="30"></td>
-                        <td><input type="number" name="cell23" min="31" max="45"></td>
-                        <td><input type="number" name="cell33" min="46" max="60"></td>
-                        <td><input type="number" name="cell43" min="61" max="75"></td>
+                        <td><input type="number" name="cell03" maxlength="4" min="1" max="15" required></td>
+                        <td><input type="number" name="cell13"  maxlength="4" min="16" max="30" required></td>
+                        <td><input type="number" name="cell23" maxlength="4" min="31" max="45" required></td>
+                        <td><input type="number" name="cell33" maxlength="4" min="46" max="60" required></td>
+                        <td><input type="number" name="cell43" maxlength="4" min="61" max="75" required></td>
 
                     </tr>
 
                     <tr>
-                        <td><input type="number" name="cell04" maxlength="4" min="1" max="15"></td>
-                        <td><input type="number" name="cell14"  maxlength="4" min="16" max="30"></td>
-                        <td><input type="number" name="cell24" min="31" max="45"></td>
-                        <td><input type="number" name="cell34" min="46" max="60"></td>
-                        <td><input type="number" name="cell44" min="61" max="75"></td>
+                        <td><input type="number" name="cell04" maxlength="4" min="1" max="15" required></td>
+                        <td><input type="number" name="cell14"  maxlength="4" min="16" max="30" required></td>
+                        <td><input type="number" name="cell24" maxlength="4" min="31" max="45" required></td>
+                        <td><input type="number" name="cell34" maxlength="4" min="46" max="60" required></td>
+                        <td><input type="number" name="cell44" maxlength="4"min="61" max="75" required></td>
 
                     </tr>
-
-
 
 
                 </table>

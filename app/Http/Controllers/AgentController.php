@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
@@ -14,7 +16,7 @@ class AgentController extends Controller
      */
     public function index()
     {
-        //
+      return  view('agent.index')->with('agents',Agent::all());
     }
 
     /**
@@ -24,7 +26,7 @@ class AgentController extends Controller
      */
     public function create()
     {
-        //
+        return view('agent.create');
     }
 
     /**
@@ -39,6 +41,59 @@ class AgentController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function newregister (Request $request)
+    {
+    /*
+     * "name" => "Venus Matthews"
+  "email" => "jilano@mailinator.com"
+  "password" => "password"
+  "password_confirmation" => "password"
+  "tel" => "+1 (837) 964-8501"
+  "agent_name" => "Allen and Roach Trading"
+  "city" => "Ullamco molestiae qu"
+  "location" => "Sed atque consequatu"
+     */
+
+        $validated = $request->validate([
+            'email' => 'required',
+            'name' => 'required',
+        ]);
+
+try{
+
+
+      $lastuser=User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')) // password
+        ]);
+
+     $agent= Agent::create([
+            'name' => $request->input('agent_name'),
+            'tel' => $request->input('tel'),
+            'city' =>$request->input('city'),
+            'user_id' => $lastuser->id,
+            'location'=>$request->input('location'),
+            'is_active'=>false
+        ]);
+}catch (\Exception $ex){
+    return redirect()->back()->with(['error',$ex->getMessage()]);
+}
+        if($agent!=null){
+            return redirect()->back()->with(['success','Agent Registerd']);
+        }else{
+            return redirect()->back()->with(['error','Agent Not Registerd']);
+        }
+
+
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Agent  $agent
@@ -46,7 +101,7 @@ class AgentController extends Controller
      */
     public function show(Agent $agent)
     {
-        //
+       return view('agent.show')->with('agent',$agent);
     }
 
     /**
@@ -57,7 +112,7 @@ class AgentController extends Controller
      */
     public function edit(Agent $agent)
     {
-        //
+    return view('agent.edit')->with('agent',$agent);
     }
 
     /**

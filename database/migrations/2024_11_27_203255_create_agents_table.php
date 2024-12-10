@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('tel');
             $table->string('city');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->on('users')->references('id');
+
             $table->string('location');
             $table->string('photo')->default('/assets/img/user.png');
             $table->boolean('is_active')->default(false);

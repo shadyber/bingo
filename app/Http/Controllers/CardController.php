@@ -47,6 +47,7 @@ if($selected_cards!="[]"){
         'card_price'=>$card_price,
         'user_id'=>Auth::user()->id,
         'selected_cards'=>$selected_cards,
+        'cards_qnt'=>count(json_decode($selected_cards)),
         'random_numbers'=>$random_numbers,
     ]);
 

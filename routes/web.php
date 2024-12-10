@@ -24,8 +24,9 @@ Route::middleware([
 ])->group(function () {
     Route::post('/generatecards',[\App\Http\Controllers\CardController::class,'generateCards'])->name('generatecards');
 
-
+Route::post('newregister',[\App\Http\Controllers\AgentController::class,'newregister'])->name('newregister');
     Route::resource('/card',\App\Http\Controllers\CardController::class);
+    Route::resource('/agent',\App\Http\Controllers\AgentController::class);
 
   Route::post('/toggelcard',[\App\Http\Controllers\CardController::class,'togglecard'])->name('toggelcard');
     Route::post('/newgame   ',[\App\Http\Controllers\CardController::class,'startnewgame'])->name('startnewgame');

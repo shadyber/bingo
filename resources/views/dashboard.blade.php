@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="items-center">
+    <div class="items-center row">
 
         @if(\Illuminate\Support\Facades\Auth::user()->id==1)
 
@@ -17,15 +17,17 @@
 
 
     @if(session()->get('selected_cards')==[])
+
       <a href="/newgame" class="btn btn-lg btn-info">Select Cards to Play</a>
+
     @elseif(session()->get('random_numbers')==[])
 
 
 
 
-                <div class="mb-3 form-group">
+
                     <a href="/newgame" class="btn btn-lg btn-warning "> Start New Game</a>
-                </div>
+
 
        @else
          @livewire('gameboard')

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->longText('selected_cards');
+            $table->integer('cards_qnt')->default(0);
             $table->longText('random_numbers');//akaanswers
             $table->string('card_price')->default('10');
             $table->float('agent_commission')->default(0.25);
