@@ -196,7 +196,7 @@
                </div>
 
                 <div class="col-md-3">
-                    <p class="display-6 text-right"><span class="text-xs">{{\App\Models\Game::lastActiveGame()->card_price}}ETB </span>  Winner Prize :</p>
+                    <p class="display-6 text-right"><span class="text-xs">{{\App\Models\Game::lastActiveGame()->card_price}}ETB </span> <sup class="text-xs">X{{\App\Models\Game::lastActiveGame()->agent_commission}} </sup>  Winner Prize :</p>
                    <div class="font-semibold display-4 text-rainbow-animation"> $ETB {{\App\Models\Game::winPrize()}} </div>
 
                 </div>

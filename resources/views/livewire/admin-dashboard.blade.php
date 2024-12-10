@@ -9,10 +9,10 @@
                <table class="table-bordered table-striped">
                    <tr class="bg-indigo-600 text-2xl">
                    <td>User Name</td>
-                   <td>Numbers of Games</td>
-                   <td>Transaction Made</td>
-                   <td>Commision Made</td>
-                   <td>Registerd At</td>
+                   <td>Games Qnt</td>
+                   <td>All Trnx</td>
+                   <td>Income</td>
+                   <td>Registerd </td>
 
                    <td>Is Active </td>
                    </tr>

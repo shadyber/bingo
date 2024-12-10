@@ -48,16 +48,7 @@ class AgentController extends Controller
      */
     public function newregister (Request $request)
     {
-    /*
-     * "name" => "Venus Matthews"
-  "email" => "jilano@mailinator.com"
-  "password" => "password"
-  "password_confirmation" => "password"
-  "tel" => "+1 (837) 964-8501"
-  "agent_name" => "Allen and Roach Trading"
-  "city" => "Ullamco molestiae qu"
-  "location" => "Sed atque consequatu"
-     */
+
 
         $validated = $request->validate([
             'email' => 'required',
@@ -85,6 +76,7 @@ try{
     return redirect()->back()->with(['error',$ex->getMessage()]);
 }
         if($agent!=null){
+
             return redirect()->back()->with(['success','Agent Registerd']);
         }else{
             return redirect()->back()->with(['error','Agent Not Registerd']);

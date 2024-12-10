@@ -2,7 +2,7 @@
     <div class="pt-4 bg-gray-100 dark:bg-gray-900">
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
             <div>
-               <header>New Agent Registration</header>
+@include('layouts.flash-message')
             </div>
 
 
@@ -11,6 +11,7 @@
         @csrf
 
         <div class="row">
+            <h1 class="font-semibold text-2xl p-3 m-3 ">New Agent Registration </h1>
         <div class="col-md-6">
                 <div>
                     <x-label for="name" value="{{ __('Name') }}" />
@@ -39,7 +40,7 @@
                 </div>
           </div>
         <div class="col-md-6">
-        <h2>More Info</h2>
+        <h2 class="text-2xl text-xl">More Info</h2>
             <div class="mt-4">
                 <x-label for="tel" value="{{ __('Telephone Number') }}" />
                 <x-input id="tel" class="block mt-1 w-full" type="text" name="tel" required autocomplete="tel" />
