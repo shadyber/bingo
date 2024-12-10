@@ -224,7 +224,9 @@
 <div class="row p-2 m-2">
                     @if($card_to_check)
 <div class="col-md-6 p-2 m-2">
-                        <table>
+    <a href="#" id="checkResultButton"  wire:click="checkBingo({{\App\Models\Card::find($card_to_check_id)->numbers}})"  class="btn btn-sm btn-info btn-outline-dark p-2 m-2">Check Now</a>
+
+    <table>
                             <tr>
                                 <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">B</td>
                                 <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold bg-indigo-600">I</td>
@@ -311,6 +313,10 @@
 
 <script>
 
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space') { Livewire.emit('togglePause');
+        } });
+
 
     document.addEventListener('livewire:load', function () {
 
@@ -343,6 +349,8 @@ startTimer();
 
 
     });
+
+
 
 </script>
 

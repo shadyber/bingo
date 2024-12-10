@@ -35,7 +35,7 @@ $this->card_to_check=$bingoCard;
              if (count(array_intersect($row, $calledNumbers)) === 5)
              {
                  $this->isBingo = true;
-
+$this->playAudio(asset('/assets/audio/chimes/winner.ogg'));
                  return true;
              }
          }
@@ -47,7 +47,7 @@ $this->card_to_check=$bingoCard;
             if (count(array_intersect($column, $calledNumbers)) === 5)
             {
                 $this->isBingo = true;
-
+                $this->playAudio(asset('/assets/audio/chimes/winner.ogg'));
                 return true;
             }
         }
@@ -61,17 +61,19 @@ $this->card_to_check=$bingoCard;
         if (count(array_intersect($diagonal1, $calledNumbers)) === 5 || count(array_intersect($diagonal2, $calledNumbers)) === 5)
         {
             $this->isBingo = true;
+            $this->playAudio(asset('/assets/audio/chimes/winner.ogg'));
           return true;
         }
         $this->isBingo = false;
+        $this->playAudio(asset('/assets/audio/chimes/notwinner.ogg'));
         return false;
     }
 
 
 
-     public function playAudio(){
-         $this->audioUrl = asset('/assets/audio/chimes/'.$this->random_number_array[$this->call_index].'.ogg');// Construct the URL based on the random number
-
+     public function playAudio($url){
+       //  $this->audioUrl = asset('/assets/audio/chimes/'.$this->random_number_array[$this->call_index].'.ogg');// Construct the URL based on the random number
+$this->audioUrl=$url;
          // Dispatch the browser event with the audio URL
          $this->dispatchBrowserEvent('playAudio', ['url' => $this->audioUrl]);
 
@@ -84,7 +86,7 @@ public function nextCall(){
 
             $this->call_index++;
             $this->call_history[]=$this->random_number_array[$this->call_index];
-
+$this->playAudio(asset('/assets/audio/chimes/'.$this->random_number_array[$this->call_index].'.ogg'));
 
         }
 
