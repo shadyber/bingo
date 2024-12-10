@@ -11,6 +11,9 @@
             <div class="col-md-4">
                 <input type="button" name="btn" value="Generate Cards" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn  btn-danger" />
             </div>
+            <div class="col-md-4">
+                <a href="/card/create" class="btn  btn-info" >New Card</a>
+            </div>
         </div>
 <div class="row p-2">
     @foreach($cards as $card)
@@ -18,7 +21,7 @@
           <div class="card ">
               <div class="card-header flex-row">Card {{$card->card_name}}
 
-                  <a href="#" class="btn btn-sm btn-info btn-outline-dark"> <i class="fa fa-pencil"></i>Edit</a>
+                  <a href="/card/{{$card->id}}/edit" class="btn btn-sm btn-info btn-outline-dark"> <i class="fa fa-pencil"></i>Edit</a>
 
               </div>
               <div class="card-body items-center">
@@ -45,8 +48,13 @@
 
           </div>
           <div class="card-footer">
-              <form action="#" class="form-inline">
-                  <a href="#" class="btn btn-sm btn-danger btn-outline-dark">Delete</a>
+              <form id="delete-form" action="/card/{{$card->id}}" method="post">
+                  {{ csrf_field() }}
+                  {{ method_field('DELETE') }}
+
+                  <div class="form-group">
+                      <input type="submit" class="btn btn-danger" value="Delete Card">
+                  </div>
               </form>
           </div>
       </div>
@@ -59,7 +67,8 @@
         <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 @if(\App\Models\Game::getGameState()!="started")
-                    <form class="max-w-sm mx-auto" action="card" method="post" >
+                    <form class="max-w-sm mx-auto" action="generatecards" method="post" >
+                        @csrf
                         <div class="modal-content">
                             <div class="modal-header">
                                 Confirm Submit
@@ -80,7 +89,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-success"> Genrate </button>
+                                <button class="btn btn-success"> Generate </button>
                             </div>
 
                         </div>

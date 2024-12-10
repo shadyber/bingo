@@ -60,7 +60,7 @@
             @csrf
 
         <label for="game_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Game Type</label>
-        <select id="game_type" name="game_type"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select id="game_type" required name="game_type"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="">Select Game Type </option>
             <option selected value="0.05">Type 1 (5%)</option>
             <option value="0.1">Game Type 2 ( 10%)</option>
@@ -76,9 +76,10 @@
 
 
         <label for="card_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Card Price</label>
-        <select id="card_price" name="card_price"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select id="card_price" required name="card_price"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
             <option  value="">Card Price </option>
+            <option  value="5">5 Birr </option>
             <option  value="10">10 Birr </option>
             <option value="20">20 Birr</option>
             <option value="30">30 Birr</option>

@@ -82,7 +82,7 @@ $this->audioUrl=$url;
 
 public function nextCall(){
 
-        if(!$this->paused&&$this->call_index<=75){
+        if(!$this->paused && $this->call_index<75){
 
             $this->call_index++;
             $this->call_history[]=$this->random_number_array[$this->call_index];

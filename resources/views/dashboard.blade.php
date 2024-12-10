@@ -20,14 +20,13 @@
       <a href="/newgame" class="btn btn-lg btn-info">Select Cards to Play</a>
     @elseif(session()->get('random_numbers')==[])
 
-            <form class="max-w-sm mx-auto" action="newgame" method="post" >
-                @csrf
+
 
 
                 <div class="mb-3 form-group">
-                    <button class="btn btn-lg btn-warning "> Start New Game</button>
+                    <a href="/newgame" class="btn btn-lg btn-warning "> Start New Game</a>
                 </div>
-            </form>
+
        @else
          @livewire('gameboard')
        @endif

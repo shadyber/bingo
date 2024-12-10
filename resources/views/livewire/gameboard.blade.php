@@ -100,7 +100,7 @@
 
                         @foreach(array_reverse($call_history) as $k=>$call)
                             @if($k<5)
-                                <div class="col-md-2 bg-gray-100  card p-1 m-1" >
+                                <div class="col-md-2 bg-gray-100  card p-1 m-1 font-semibold" >
 
 
                                             @switch($call)
@@ -142,7 +142,7 @@
                             <div class="bg-gray-200">
                                 @if(count($selected_cards)>0)
                                     @foreach($selected_cards as $selected_card)
-                                        <a href="#" class="border-2 border-gray-700" wire:click="checkBingo({{$selected_card->numbers}})" > Card:  {{$selected_card->card_name}}</a>
+                                        <a href="#" class="border-2 border-gray-700"> Card:  {{$selected_card->card_name}}</a>
                                     @endforeach
 
                                 @else
