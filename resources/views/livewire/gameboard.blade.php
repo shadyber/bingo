@@ -166,9 +166,9 @@
                               {{$call_index+1}}</span>
                     </div>
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-info btn-sm" id="beginButton" wire:click="beginGame" >Begin Game</a>
-                        <a href="#" class="btn btn-success btn-sm" id="startButton" >Call Auto</a>
-                        <a href="#" class="btn btn-warning btn-sm" id="stopButton">Pause Game</a>
+                        <button wire:click="togglePause" class="btn btn-sm btn-info"> {{ $paused ? 'Run Auto' : 'Pause Auto' }} </button>
+
+
                         <a href="#" class="btn btn-info btn-sm" id="nextButton"  wire:click="nextCall">Call Next</a>
                     </div>
                     <div class="col-md-12">
@@ -183,8 +183,8 @@
                         </div>
                        @if($card_to_check_id!=null)
 
-                        <a href="#" id="checkResultButton"  wire:click="checkBingo({{\App\Models\Card::find($card_to_check_id)->numbers}})"  class="btn btn-sm btn-info btn-outline-dark" onclick="showResultHideCalc()">Check Now</a>
-                        <a href="#" id="showResultButon" data-toggle="modal"   data-target="#bingoCheckModal"  class="btn btn-sm btn-info btn-outline-dark ">Show Result </a>
+                        <a href="#" id="checkResultButton"  wire:click="checkBingo({{\App\Models\Card::find($card_to_check_id)->numbers}})"  class="btn btn-sm btn-info btn-outline-dark">Check Now</a>
+                        <a href="#" id="showResultButon" data-toggle="modal"   data-target="#bingoCheckModal"  class="btn btn-sm btn-info btn-outline-dark" wire:click="stopTimer()">Show Result </a>
 
                         @endif
 
@@ -210,7 +210,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="bingoCheckModal" tabindex="-1" role="dialog" aria-labelledby="bingoCheckModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="bingoCheckModal" tabindex="-1" role="dialog" aria-labelledby="bingoCheckModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -236,8 +236,8 @@
                             @for($i=0;$i<5;$i++)
                                 <tr>
                                     @for($j=0;$j<5;$j++)
-                                        <td class="border-2 border-gray-700 text-2xl p-2 mx-auto text-center font-semibold    @if((array_search($card_to_check[$j][$i],$call_history,true)!=null)||$card_to_check[$j][$i]==$random_number_array[0])
-                                            bg-red-600 text-green-400 rounded-full
+                                        <td class="border-2 border-gray-700 @if($i==2 && $j==2) text-sm @else text-2xl @endif p-2 mx-auto text-center font-semibold    @if((array_search($card_to_check[$j][$i],$call_history,true)!=null)||$card_to_check[$j][$i]==$random_number_array[0])
+                                            bg-success text-green-red rounded-full
 @endif"> {{$card_to_check[$j][$i]}}</td>
                                     @endfor
                                 </tr>
@@ -314,51 +314,39 @@
 
     document.addEventListener('livewire:load', function () {
 
-
-    window.addEventListener('playAudio', event => {
-        const audio = document.getElementById('myAudio');
-        audio.src = event.detail.url;
-        audio.play();
-    });
-
-
-
-
-        document.getElementById('startButton').addEventListener('click', startInterval);
-        document.getElementById('stopButton').addEventListener('click', stopInterval);
-        document.getElementById('showResultButon').addEventListener('click', stopInterval);
-        let interval = null;
-
-        function startInterval() {
-
-            stopInterval();
-
-            interval = setInterval(function () {
-                Livewire.emit('runAuto'); }, 3000);
-
-        }
-
-        function stopInterval() {
+        let interval;
+        function startTimer() {
+            interval = setInterval(() => {
+                Livewire.emit('nextCall');
+                }, 3000);
+            // 1 second interval
+            }
+   function stopTimer() {
             clearInterval(interval);
-
         }
+        Livewire.on('callNext', () => {
+          if(@this.$paused){
 
+          }else{
+startTimer();
+          }
+        });
+       Livewire.emit('callNext'); // Initial call to start the process // To ensure the timer starts running immediately
+     stopTimer();
+        startTimer();
 
-        document.addEventListener('keydown', function(event) {
-            if (event.code === 'Space')
-            {
-              stopInterval();
+        window.addEventListener('playAudio', event => {
+            const audio = document.getElementById('myAudio');
+            audio.src = event.detail.url;
+            audio.play();
+        });
 
-            } });
-
-        // Start the interval when the page loads //
-
-        // Example buttons to start and stop the timer
 
     });
-
 
 </script>
+
+
 
 </div>
 

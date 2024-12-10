@@ -117,7 +117,7 @@ if($selected_cards!="[]"){
      session()->put('selected_cards',$selected_cards);
 
     $random_numbers=$this->regeneraterandomarray();
-
+array_unshift($random_numbers,'FREE');
     session()->put('random_numbers',$random_numbers);
 
     $this->saveGame($game_t,$card_p);
