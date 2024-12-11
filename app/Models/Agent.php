@@ -31,6 +31,11 @@ public static function totalCommision($agentid){
     }
     return $totalcommision;
 }
+public static function isActive($user_id){
+ $user=User::find($user_id);
+ $agent=$user->agent;
+return $agent->is_active;
+}
 
     public function user(){
         return $this->belongsTo(User::class);

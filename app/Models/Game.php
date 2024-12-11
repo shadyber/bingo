@@ -26,6 +26,7 @@ class Game extends Model
 public function user(){
        return $this->belongsTo(User::class);
 }
+
     public static function  lastActiveGame(){
         $game=Game::where('user_id',Auth::user()->id)->where("game_state","started")->get()->last();
 
@@ -48,8 +49,6 @@ public function user(){
             $number_of_cards=count($cards);
             $total=$number_of_cards*$game->card_price;
             $prize=$total-($total*$game->agent_commission);
-
-
 
 return $prize;
         }

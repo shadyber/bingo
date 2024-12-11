@@ -1,6 +1,10 @@
-<div>   <div class="card p-2 m-2 space-y-1">
-        <div class="card-title"><h2>Select Cards </h2></div>
+<div>
+    <div class="card p-2 m-2 space-y-1">
+        @if(\App\Models\Agent::isActive(\Illuminate\Support\Facades\Auth::user()->id))
+            <div class="card-title"><h2>Select Cards </h2></div>
+
         <div class="card-body">
+
             @if(\App\Models\Game::getGameState()!="started")
 
                 <form action="toggelcard" method="post" class="form-inline" >
@@ -51,9 +55,9 @@
                 </div>
             @endif
         </div>
-    </div>
+           </div>
 
-    <hr>
+      <hr>
 
     @if(count(\App\Models\Card::agentCards())>0&& \App\Models\Game::getGameState()!="started")
         <form class="max-w-sm mx-auto" action="newgame" method="post" >
@@ -110,7 +114,9 @@
     @else
         <a href="/card" class="btn btn-lg btn-danger btn-outline-dark" >Manage Cards </a>
     @endif
-
+    @else
+        Your account is not active please contact main office
+    @endif
 </div>
 
 

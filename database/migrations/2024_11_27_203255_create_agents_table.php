@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('user_id')->on('users')->references('id');
 
             $table->string('location');
-            $table->string('photo')->default('/assets/img/user.png');
+            $table->string('photo')->default('/assets/img/user.webm');
             $table->boolean('is_active')->default(false);
 
             $table->timestamps();

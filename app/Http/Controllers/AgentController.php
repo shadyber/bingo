@@ -93,7 +93,8 @@ try{
      */
     public function show(Agent $agent)
     {
-       return view('agent.show')->with('agent',$agent);
+        $games=$agent->user->games;
+       return view('agent.show')->with(['agent'=>$agent,'games'=>$games]);
     }
 
     /**

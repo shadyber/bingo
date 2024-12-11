@@ -22,15 +22,16 @@
 
     @elseif(session()->get('random_numbers')==[])
 
-
-
-
-
-                    <a href="/newgame" class="btn btn-lg btn-warning "> Start New Game</a>
-
+   <a href="/newgame" class="btn btn-lg btn-warning "> Start New Game</a>
 
        @else
+           @if(\App\Models\Agent::isActive(\Illuminate\Support\Facades\Auth::user()->id))
          @livewire('gameboard')
+                @else
+               your account is not active
+               Please Contact to Main Office.
+               @endif
+
        @endif
 
 @endif

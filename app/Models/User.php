@@ -59,7 +59,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function game(){
+    public function games(){
         return $this->hasMany(Game::class);
     }
     public function agent(){
