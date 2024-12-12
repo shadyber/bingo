@@ -165,11 +165,17 @@
                         <span class="card-text">Total Call :
                               {{$call_index+1}}</span>
                     </div>
+                    @if($call_index<2)
+
+                            <button wire:click="getReady" class="btn btn-sm btn-warning bg-lg">Get Ready  </button>
+
+
+                        @endif
                     <div class="col-md-12">
-                        <button wire:click="togglePause" class="btn btn-sm btn-info"> {{ $paused ? 'Run Auto' : 'Pause Auto' }} </button>
 
+                        <button wire:click="togglePause" class="btn btn-sm btn-info m-2 p-2"> {{ $paused ? 'Run Auto' : 'Pause Auto' }} </button>
 
-                        <a href="#" class="btn btn-info btn-sm" id="nextButton"  wire:click="nextCall">Call Next</a>
+                        <a href="#" class="btn btn-info btn-sm p-2 m-2" id="nextButton"  wire:click="nextCall">Call Next</a>
                     </div>
                     <div class="col-md-12">
                         <div>

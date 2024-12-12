@@ -11,10 +11,15 @@ class Gameboard extends Component
 {
     protected $listeners = ['nextCall','togglePause'];
 
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards,$card_to_check_id,$card_to_check, $game,$isBingo=false, $paused = false;
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards,$card_to_check_id,$card_to_check, $game,$isBingo=false, $paused = true;
 
     public function togglePause() {
         $this->paused = !$this->paused;
+
+    }
+
+    public function getReady() {
+        $this->playAudio(asset('/assets/audio/chimes/chime.mp3'));
 
     }
 

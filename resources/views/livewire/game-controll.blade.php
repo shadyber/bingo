@@ -1,4 +1,5 @@
 <div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <div class="card p-2 m-2 space-y-1">
         @if(\App\Models\Agent::isActive(\Illuminate\Support\Facades\Auth::user()->id))
             <div class="card-title"><h2>Select Cards </h2></div>
@@ -10,7 +11,7 @@
                 <form action="toggelcard" method="post" class="form-inline" >
                     @csrf
 
-                    <select name="card_id" id="card_to_select">
+                    <select name="card_id" id="card_to_select" class="selectpicker" data-live-search="true">
                         <option value="">Select Card</option>
                         @foreach(\App\Models\Card::agentCards() as $c)
                             <option value="{{$c->id}}"> {{$c->card_name}}</option>
@@ -18,7 +19,7 @@
                     </select>
 
                     <button type="submit" class="btn btn-primary">
-                        Add
+                        Toggle
                     </button>
 
 
@@ -29,27 +30,32 @@
 
                         <div class="col-md-2">
 
+                            <form action="toggelcard" method="post"
+                            >
 
-                            <div class=" border border-gray-200 rounded-lg  ">
-                                <h3 class="text-2xl   font-semibold"> Card  : {{$card->card_name}}</h3>
-                                <form action="toggelcard" method="post"
-                                >
+                                @csrf
+                                <input type="hidden" name="card_id" value="{{$card->id}}">
 
-                                    @csrf
-                                    <input type="hidden" name="card_id" value="{{$card->id}}">
+
+
                                     @if($card->is_active==0)
-                                        <input type="checkbox" value=""  name="is_active">
-                                        <button class="btn btn-sm btn-primary"> Add</button>
-                                    @else
-                                        <input type="checkbox" value=""  checked name="is_active">
-                                        <button class="btn btn-sm btn-danger"> Remove</button>
-                                    @endif
+                                    <div class=" border border-gray-200 rounded-lg bg-gray-200 text-gray-900 m-2">
+                                        <button class="btn w-full"> {{$card->card_name}}</button>
+                                    </div>
+
+                                @else
+                                    <div class=" border border-gray-200 rounded-lg  bg-blue-500 text-gray-900 m-2">
+
+                                    <button class="btn w-full"> {{$card->card_name}}</button>
+                                    </div>
+                                @endif
 
 
-                                </form>
 
 
-                            </div>
+
+
+                            </form>
                         </div>
                     @endforeach
                 </div>

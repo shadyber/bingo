@@ -86,10 +86,12 @@
                                             </tr>
 
                                             @foreach($games as $game)
-                                                <tr>Total</tr>
-                                                <tr>Commusino</tr>
-                                                <tr>Payed</tr>
-                                                <tr>Date</tr>
+                                                <tr>
+                                                <td>ETB</td></td>
+                                                <td> 0 ETB</td>
+                                                <td>Payed</td>
+                                                <td>{{$game->created_at}}</td>
+                                                </tr>
                                                 @endforeach
                                         </table>
                                     </div>
