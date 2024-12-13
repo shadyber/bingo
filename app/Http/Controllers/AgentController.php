@@ -58,12 +58,11 @@ class AgentController extends Controller
 
 try{
 
-
       $lastuser=User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'user_type'=>'agent',
-            'referal_user_id'=>Auth::user()->id,
+            'referral_user_id'=>auth()->user()->id,
             'password' => Hash::make($request->input('password')) // password
         ]);
 

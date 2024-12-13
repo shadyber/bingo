@@ -21,7 +21,7 @@
                    @foreach($agents as $agent)
 
                                 <tr>
-                                    <td><a href="/agent/{{$agent->id}}"> {{$agent->name}}</a></td>
+                                    <td><a href="/agent/{{$agent->id}}"> {{$agent->name}}  <p class="text text-xs "> {{$agent->email}}</p></a></td>
                                     <td> {{count($agent->user->games)}}</td>
                                     <td>
 

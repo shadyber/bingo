@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ToggeleUser extends Component
@@ -9,10 +10,11 @@ class ToggeleUser extends Component
     public $agent;
 
     public function toggleAgent(){
-       $this->agent->is_active=!$this->agent->is_active;
-       $this->agent->save();
+        if(Auth::user()->user_type=='admin'){
+            $this->agent->is_active=!$this->agent->is_active;
+            $this->agent->save();
+        }
 
-       return;
 }
 
 public function mount($agent){

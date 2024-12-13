@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
-    protected $fillable=['name','tel','city','location','is_active','user_id'];
+    protected $fillable=['name','tel','city','location','is_active','user_id','referral_user_id'];
 
     public static function  totalTransaction($agentid){
 $user_id=Agent::find($agentid)->user_id;
@@ -20,6 +20,8 @@ $totalmake+=($game->card_price*$game->cards_qnt);
         }
         return $totalmake;
 }
+
+
 public static function totalCommision($agentid){
     $user_id=Agent::find($agentid)->user_id;
     $games=Game::where('user_id',$user_id)->get();
@@ -31,11 +33,16 @@ public static function totalCommision($agentid){
     }
     return $totalcommision;
 }
+
+
+
 public static function isActive($user_id){
  $user=User::find($user_id);
  $agent=$user->agent;
 return $agent->is_active;
 }
+
+
 
     public function user(){
         return $this->belongsTo(User::class);

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('user_type')->default('agent');
-            $table->bigInteger('referal_user_id')->default(0)->unsigned();
+            $table->bigInteger('referral_user_id')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

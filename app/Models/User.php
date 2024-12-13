@@ -28,6 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'referral_user_id',
+        'user_type',
     ];
 
     /**
@@ -68,6 +70,6 @@ class User extends Authenticatable
     }
     public  static function agent_users(){
 
-        return User::where('referal_user_id', Auth::user()->id)->get();
+        return User::where('referral_user_id', Auth::user()->id)->get();
     }
 }
