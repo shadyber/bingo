@@ -7,14 +7,11 @@
 
     <div class="items-center row">
 
-        @if(\Illuminate\Support\Facades\Auth::user()->id==1)
+        @if(\Illuminate\Support\Facades\Auth::user()->user_type=='admin')
 
 @livewire('admin-dashboard')
 
  @else
-
-
-
 
     @if(session()->get('selected_cards')==[])
 

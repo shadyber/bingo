@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
@@ -61,6 +62,8 @@ try{
       $lastuser=User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'user_type'=>'agent',
+            'referal_user_id'=>Auth::user()->id,
             'password' => Hash::make($request->input('password')) // password
         ]);
 

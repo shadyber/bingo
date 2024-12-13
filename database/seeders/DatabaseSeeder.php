@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
        'name' => 'Super Admin',
-        'email' => 'admin@rootsystem.com',
+        'email' => 'admin@bingo.test',
+        'user_type'=>'admin',
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' // password
        ]);
 
         \App\Models\Agent::factory()->create([
-            'name' => 'Main Agent',
+            'name' => 'Super Admin',
             'tel' => '994',
             'city' => 'Addis Ababa',
             'user_id' => '1',

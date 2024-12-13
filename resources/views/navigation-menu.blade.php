@@ -150,6 +150,9 @@
                             <x-dropdown-link href="{{ route('card.index') }}">
                                 {{ __('Cards') }}
                             </x-dropdown-link>
+                          <x-dropdown-link href="{{ route('referral.index') }}">
+                                                        {{ __('Referral') }}
+                                                    </x-dropdown-link>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
@@ -218,7 +221,14 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+             <x-responsive-nav-link href="{{ route('referral.index') }}" :active="request()->routeIs('referral.index')">
+                    {{ __('Referral') }}
+                </x-responsive-nav-link>
+
+
+
+
+            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
                         {{ __('API Tokens') }}
                     </x-responsive-nav-link>

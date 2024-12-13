@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -64,5 +65,9 @@ class User extends Authenticatable
     }
     public function agent(){
         return $this->hasOne(Agent::class);
+    }
+    public  static function agent_users(){
+
+        return User::where('referal_user_id', Auth::user()->id)->get();
     }
 }
