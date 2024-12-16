@@ -11,26 +11,44 @@ class Gameboard extends Component
 {
     protected $listeners = ['nextCall','togglePause'];
 
-    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards,$card_to_check_id,$card_to_check, $game,$isBingo=false, $paused = true;
+    public  $audioUrl, $random_number_array, $call_index=0, $call_history, $selected_cards, $selected_card, $card_to_check_id,$card_to_check, $game,$isBingo=false, $paused = true , $search;
 
     public function togglePause() {
         $this->paused = !$this->paused;
 
     }
 
+
+    public function stopTimer(){
+        $this->paused=true;
+        $this->dispatchBrowserEvent('stopTimer');
+
+    }
     public function getReady() {
         $this->playAudio(asset('/assets/audio/chimes/chime.mp3'));
 
     }
 
 
-public function stopTimer(){
-        $this->paused=true;
-    $this->dispatchBrowserEvent('stopTimer');
+    public  function searchCard()
+    {
 
-}
+        $this->selected_card = Card::agentCards()->where('card_name', $this->search)->last();
+
+        if ($this->selected_card != null && $this->selected_card != '[]') {
+            $this->card_to_check_id = $this->selected_card->id;
+
+        } else {
+            $this->card_to_check_id = null;
+
+        }
+
+$this->checkBingo(json_decode($this->selected_card->numbers));
+    }
+
 
     function checkBingo($bingoCard) {
+
         $this->paused=true;
         // Check rows
 $this->card_to_check=$bingoCard;

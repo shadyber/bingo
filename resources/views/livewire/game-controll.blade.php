@@ -5,13 +5,17 @@
             <div class="card-title"><h2>Select Cards </h2></div>
 
         <div class="card-body">
+<div class="row pb-3 mb-3">
+
 
             @if(\App\Models\Game::getGameState()!="started")
-
+                <div class="col-md-3">
                 <form action="toggelcard" method="post" class="form-inline" >
                     @csrf
 
-                    <select name="card_id" id="card_to_select" class="selectpicker" data-live-search="true">
+
+
+                    <select name="card_id" id="card_to_select" >
                         <option value="">Select Card</option>
                         @foreach(\App\Models\Card::agentCards() as $c)
                             <option value="{{$c->id}}"> {{$c->card_name}}</option>
@@ -23,8 +27,12 @@
                     </button>
 
 
-                </form>
 
+
+                </form>
+        </div>
+     <div class="col-md-2">OR</div>   @livewire('card-dropdown-search')
+</div>
                 <div class="row" id="cards">
                     @foreach(\App\Models\Card::agentCards() as $card)
 

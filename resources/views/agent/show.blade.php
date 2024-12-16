@@ -77,8 +77,8 @@
 
                                 <div class="mb-6">
                                     <div class="flex justify-between flex-wrap gap-2 w-full">
-                                        <table class="table-striped w-full">
-                                            <tr>
+                                        <table class="table-striped w-full border-gray-700 table-bordered">
+                                            <tr class="bg-indigo-600">
                                                 <td> Total </td>
                                                 <td> Shop Gain</td>
                                                 <td> Payout</td>
@@ -87,8 +87,8 @@
 
                                             @foreach($games as $game)
                                                 <tr>
-                                                <td>ETB</td></td>
-                                                <td> 0 ETB</td>
+                                                <td> {{\App\Models\Game::gamePrize($game->id)}} ETB</td></td>
+                                                <td>  {{\App\Models\Game::gamePrize($game->id)* $game->agent_commission}}  ETB</td>
                                                 <td>Payed</td>
                                                 <td>{{$game->created_at}}</td>
                                                 </tr>

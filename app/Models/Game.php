@@ -54,4 +54,22 @@ return $prize;
         }
 
     }
+
+    public static function gamePrize($game_id)
+    {
+        $prize = 0;
+        $game = Game::find($game_id);
+
+        if ($game == null) {
+            // game exist
+            return $prize;
+        } else {
+            $cards = json_decode($game->selected_cards);
+            $number_of_cards = count($cards);
+            $total = $number_of_cards * $game->card_price;
+            $prize = $total - ($total * $game->agent_commission);
+
+            return $prize;
+        }
+    }
 }

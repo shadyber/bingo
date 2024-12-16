@@ -95,8 +95,14 @@ try{
      */
     public function show(Agent $agent)
     {
-        $games=$agent->user->games;
-       return view('agent.show')->with(['agent'=>$agent,'games'=>$games]);
+        if(Auth::user()->id==$agent->user_id ||Auth::user()->id=='0'){
+            $games=$agent->user->games;
+            return view('agent.show')->with(['agent'=>$agent,'games'=>$games]);
+        }else{
+            return  'not allowed';
+        }
+
+
     }
 
     /**

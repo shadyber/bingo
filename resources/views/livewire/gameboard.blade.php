@@ -69,8 +69,8 @@
 
                 <div class="row flex">
                   <div class="col-md-6">
-                      <p class="pl-3 rounded-full bg-gray-200 text-center items-center font-semibold">
-                          <i class="display-6">
+                      <p class="pl-3 rounded-full bg-gray-200 text-center font-semibold">
+                          <i class="display-6  text-rainbow-animation">
                               @switch($call=$random_number_array[$call_index])
                                   @case($call<16)
                                     B
@@ -92,7 +92,7 @@
                                   @break
                               @endswitch
 
-                          </i><i class="display-3">{{$random_number_array[$call_index]}}</i></p>
+                                  {{$random_number_array[$call_index]}}</i></p>
                   </div>
                     <div class="col-md-6 flex">
 
@@ -178,13 +178,15 @@
                         <a href="#" class="btn btn-info btn-sm p-2 m-2" id="nextButton"  wire:click="nextCall">Call Next</a>
                     </div>
                     <div class="col-md-12">
-                        <div>
+
+                        <div class="p-2 m-2">
                             <select name="selct_card_to_chek" id="selectcardtochec" wire:model="card_to_check_id" onchange="hideResultShowCalc()">
                                 <option value="">Select Card to Check</option>
                                 @foreach($selected_cards as $selected_card)
                                     <option value="{{$selected_card->id}}"> {{$selected_card->card_name}}</option>
                                 @endforeach
                             </select>
+
 
                         </div>
                        @if($card_to_check_id!=null)
@@ -197,7 +199,11 @@
 
                     </div>
 
+                    <div class="p-3 m-3">
 
+                        <input type="text" id="card_name"    wire:model="search" >
+                        <button class="btn btn-sm btn-primary" wire:click="searchCard">Check</button>
+                    </div>
                  </div>
                </div>
 

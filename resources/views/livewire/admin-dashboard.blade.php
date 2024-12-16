@@ -9,6 +9,7 @@
                <table class="table-bordered table-striped">
                    <tr class="bg-indigo-600 text-2xl">
                    <td>User Name</td>
+
                    <td>Games Qnt</td>
                    <td>All Trnx</td>
                    <td>Income</td>
@@ -21,7 +22,8 @@
                    @foreach($agents as $agent)
 
                                 <tr>
-                                    <td><a href="/agent/{{$agent->id}}"> {{$agent->name}}  <p class="text text-xs "> {{$agent->email}}</p></a></td>
+                                    <td><a href="/agent/{{$agent->id}}"> {{$agent->name}} <br><small>  {{$agent->user->email}}</small>   </a></td>
+
                                     <td> {{count($agent->user->games)}}</td>
                                     <td>
 

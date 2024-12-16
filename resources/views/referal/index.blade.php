@@ -7,11 +7,11 @@
 
 
 
-                <div class="row">
+
                     <div class="col-md-3"><a href="/referral/create" class="btn btn-info btn-sm">New Agent</a></div>
-                </div>
-                <div class="row">
-                    <table class="table-bordered table-striped">
+
+
+                    <table class="table-bordered table-striped w-full">
                         <tr class="bg-indigo-600 text-2xl">
                             <td>User Name</td>
                             <td>Games Qnt</td>
@@ -28,7 +28,7 @@
 $agent=$user->agent;
 @endphp
                             <tr>
-                                <td><a href="/agent/{{$agent->id}}"> {{$agent->name}}</a></td>
+                                <td><a href="/agent/{{$agent->id}}"> {{$agent->name}}  <i class="text-xs"> {{$agent->email}}</i> </a></td>
                                 <td> {{count($agent->user->games)}}</td>
                                 <td>
 
@@ -48,7 +48,7 @@ $agent=$user->agent;
 
                         @endforeach
                     </table>
-                </div>
+
 
             </div>
 
