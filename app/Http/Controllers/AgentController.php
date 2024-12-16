@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,15 +94,32 @@ try{
      * @param  \App\Models\Agent  $agent
      * @return \Illuminate\Http\Response
      */
-    public function show(Agent $agent)
+    public function show(Agent $agent, Request $request)
     {
-        if(Auth::user()->id==$agent->user_id ||Auth::user()->id=='0'){
-            $games=$agent->user->games;
-            return view('agent.show')->with(['agent'=>$agent,'games'=>$games]);
-        }else{
-            return  'not allowed';
-        }
+        $totalCommision=0;
+        $totalTransaction=0;
+        $games=null;
 
+if($agent->user->id==Auth::user()->id){
+
+}else if(Auth::user()->id=='1'){
+
+}else{
+   return 'not allowed';
+}
+
+if($request->input('end_date') && $request->input('start_date')){
+
+    $totalTransaction=Agent::totalTransactionByDate($agent->id,$request->input('start_date'),$request->input('end_date'));
+    $totalCommision=Agent::totalCommisionByDate($agent->id,$request->input('start_date'),$request->input('end_date'));
+    $games=$agent->user->games->where('created_at','>=',$request->input('start_date'))->where('created_at','<=',$request->input('end_date'));
+}else{
+    $games=$agent->user->games;
+    $totalCommision=Agent::totalCommision($agent->id);
+    $totalTransaction=Agent::totalTransaction($agent->id);
+}
+
+        return view('agent.show')->with(['agent'=>$agent,'games'=>$games,'totalTransaction'=>$totalTransaction,'totalCommision'=>$totalCommision]);
 
     }
 

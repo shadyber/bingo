@@ -62,11 +62,16 @@
                         </div>
                         <div class="col-span-4 sm:col-span-9">
                             <div class="bg-white shadow rounded-lg p-6">
-                                <h2 class="text-xl font-bold mb-4">Net Transaction <span> {{\App\Models\Agent::totalTransaction($agent->id)}}</span></h2>
-                                <h3 class="text-xl font-bold mb-4">Net Income <span> {{\App\Models\Agent::totalCommision($agent->id)}}</span></h3>
+                                <h2 class="text-xl font-bold mb-4">Net Transaction <span> {{$totalTransaction}}</span></h2>
+                                <h3 class="text-xl font-bold mb-4">Net Income <span>{{$totalCommision}}</span></h3>
                                 <p class="text-gray-700">
 
-                                    filtter form
+                                <form action="#" class="form-horizontal inline" method="get">
+
+                                    <input type="date" name="start_date" value="{{\Illuminate\Support\Carbon::today()}}" > to
+                                    <input type="date" name="end_date" value="{{today()}}">
+                                    <input type="submit" value="filter" class="btn btn-lg btn-primary">
+                                </form>
                                 </p>
 
 

@@ -28,7 +28,9 @@ class Gameboard extends Component
         $this->playAudio(asset('/assets/audio/chimes/chime.mp3'));
 
     }
-
+public function changeSelectedCard($card_id){
+        $this->card_to_check_id=$card_id;
+}
 
     public  function searchCard()
     {
@@ -121,8 +123,18 @@ $this->playAudio(asset('/assets/audio/chimes/'.$this->random_number_array[$this-
 
 
         // get generated random numbers
-        $this->selected_cards=session()->get('selected_cards',[]);
-        $this->random_number_array=  session()->get('random_numbers', []);
+        if(session()->get('selected_cards')){
+            $this->selected_cards=session()->get('selected_cards',[]);
+        }else{
+            $this->selected_cards=Game::json_decode(lastActiveGame()->selected_cards);
+        }
+
+        if(session()->get('random_numbers')){
+            $this->random_number_array=  session()->get('random_numbers', []);
+
+        }else{
+            $this->random_number_array=json_decode(Game::lastActiveGame()->random_numbers);
+        }
 
 
 

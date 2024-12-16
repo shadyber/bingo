@@ -142,7 +142,7 @@
                             <div class="bg-gray-200">
                                 @if(count($selected_cards)>0)
                                     @foreach($selected_cards as $selected_card)
-                                        <a href="#" class="border-2 border-gray-700"> Card:  {{$selected_card->card_name}}</a>
+                                        <a href="#" class="border-2 border-gray-700" wire:click="changeSelectedCard({{$selected_card->id}})"> Card:  {{$selected_card->card_name}}</a>
                                     @endforeach
 
                                 @else
@@ -167,7 +167,7 @@
                     </div>
                     @if($call_index<2)
 
-                            <button wire:click="getReady" class="btn btn-sm btn-warning bg-lg">Get Ready  </button>
+                            <button wire:click="getReady" id="getReady" class="btn btn-sm btn-warning bg-lg">Get Ready  </button>
 
 
                         @endif
@@ -329,6 +329,23 @@
         if (event.code === 'Space') { Livewire.emit('togglePause');
         } });
 
+    document.getElementById('getReady').addEventListener('click', async () => {
+        for (i = 1; i < 76; i++){
+            try{
+                 cache =new CacheStorage();
+                const audioUrl = '/assets/audio/chimes/'+i+'.ogg';
+                // Replace with your audio URL
+                const response = await fetch(audioUrl);
+                const audioBlob = await response.blob();
+                const cache = await caches.open('audio-cache');
+                await cache.put('audio-file', audioBlob);
+                console.log('Audio file cached successfully.');
+            }catch (Exception){
+
+            }
+
+    }
+    });
 
     document.addEventListener('livewire:load', function () {
 
