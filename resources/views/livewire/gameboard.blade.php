@@ -324,6 +324,29 @@
     </style>
 
 <script>
+    async function saveAudioToCache(audioUrl) {
+        if ('caches' in window) {
+            try {
+                const cacheName = 'audio-cache';
+                const cache = await caches.open(cacheName);
+                const response = await fetch(audioUrl);
+                if (response.ok) {
+                    await cache.put(audioUrl, response.clone());
+                    console.log('Audio file cached successfully.');
+                } else {
+                    console.error('Failed to fetch audio file:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error caching audio file:', error);
+            }
+        } else {
+            console.error('Cache API is not supported in this browser.');
+        }
+    }
+
+   
+
+
 
     document.addEventListener('keydown', function(event) {
         if (event.code === 'Space') { Livewire.emit('togglePause');
@@ -332,16 +355,11 @@
     document.getElementById('getReady').addEventListener('click', async () => {
         for (i = 1; i < 76; i++){
             try{
-                 cache =new CacheStorage();
                 const audioUrl = '/assets/audio/chimes/'+i+'.ogg';
-                // Replace with your audio URL
-                const response = await fetch(audioUrl);
-                const audioBlob = await response.blob();
-                const cache = await caches.open('audio-cache');
-                await cache.put('audio-file', audioBlob);
-                console.log('Audio file cached successfully.');
+                // Example usage
+                saveAudioToCache(audioUrl);
             }catch (Exception){
-
+                console.error('exception');
             }
 
     }
