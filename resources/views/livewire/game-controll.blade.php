@@ -106,14 +106,14 @@
 
 
                                     @if($card->is_active==0)
-                                    <div class=" border border-gray-200 rounded-lg bg-gray-200 text-gray-900 m-2">
-                                        <button class="btn w-full"> {{$card->card_name}}</button>
+                                    <div class=" border border-gray-200 rounded-lg bg-gray-200 text-gray-900 m-2" style="height: 65px">
+                                        <button class="btn w-full" style="height: 64px;"> {{$card->card_name}}</button>
                                     </div>
 
                                 @else
-                                    <div class=" border border-gray-200 rounded-lg  bg-blue-500 text-gray-900 m-2">
+                                    <div class=" border border-gray-200 rounded-lg  bg-blue-500 text-gray-900 m-2" style="height: 65px">
 
-                                    <button class="btn w-full"> {{$card->card_name}}</button>
+                                    <button class="btn w-full" style="height: 64px;"> {{$card->card_name}}</button>
                                     </div>
                                 @endif
 
