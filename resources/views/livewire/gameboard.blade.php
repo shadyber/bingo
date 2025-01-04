@@ -167,7 +167,7 @@
                     </div>
                     @if($call_index<2)
 
-                            <button wire:click="getReady" id="getReady" class="btn btn-sm btn-warning bg-lg">Get Ready  </button>
+                            <button wire:click="getReady" class="btn btn-sm btn-warning bg-lg">Get Ready  </button>
 
 
                         @endif
@@ -344,7 +344,7 @@
         }
     }
 
-   
+
 
 
 

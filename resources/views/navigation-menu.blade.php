@@ -153,6 +153,9 @@
                           <x-dropdown-link href="{{ route('referral.index') }}">
                                                         {{ __('Referral') }}
                                                     </x-dropdown-link>
+                                                 <x-dropdown-link href="#" id="getready">
+                                                        {{ __('Load Audios') }}
+                                                    </x-dropdown-link>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}

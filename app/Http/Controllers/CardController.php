@@ -81,7 +81,6 @@ if($selected_cards!="[]"){
 
     public function togglecard(Request $request){
 
-     // confirm game state before addisng a card to list
         if(Game::getGameState()=="started")
         {
           $request->session()->flash("error","Game in progress ! you could not toggle Cards at this time.");
