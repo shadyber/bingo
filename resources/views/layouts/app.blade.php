@@ -48,7 +48,33 @@
         @livewireScripts
 
         <script type="text/javascript">
+            async function saveAudioToCache(audioUrl) {
+                if ('caches' in window) {
+                    try {
+                        const cacheName = 'audio-cache';
+                        const cache = await caches.open(cacheName);
+                        const response = await fetch(audioUrl);
+                        if (response.ok) {
+                            await cache.put(audioUrl, response.clone());
+                            console.log('Audio file cached successfully.');
+                        } else {
+                            console.error('Failed to fetch audio file:', response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Error caching audio file:', error);
+                    }
+                } else {
+                    console.error('Cache API is not supported in this browser.');
+                }
+            }
+
+
+
             document.getElementById('getready').addEventListener('click', async () => {
+
+                var loading_btn=  document.getElementById('loading_spinner');
+                loading_btn.style.display = "block";
+
                 for (i = 1; i < 76; i++){
                     try{
                         const audioUrl = '/assets/audio/chimes/'+i+'.ogg';
@@ -59,6 +85,8 @@
                     }
 
                 }
+
+                loading_btn.style.display = "none";
             });
         </script>
     </body>

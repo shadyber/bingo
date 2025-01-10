@@ -33,9 +33,10 @@ Route::get('/referral/create',[\App\Http\Controllers\ReferalController::class,'c
     Route::resource('/agent',\App\Http\Controllers\AgentController::class);
 
   Route::post('/toggelcard',[\App\Http\Controllers\CardController::class,'togglecard'])->name('toggelcard');
- Route::post('/newgame   ',[\App\Http\Controllers\CardController::class,'startnewgame'])->name('startnewgame');
+ Route::post('/newgame   ',[\App\Http\Controllers\GameController::class,'startnewgame'])->name('startnewgame');
  Route::get('/newgame',\App\Http\Livewire\GameControll::class)->name("starter");
     Route::post('/endgame   ',[\App\Http\Controllers\GameController::class,'endgame'])->name('endgame');
+    Route::post('/resetgame   ',[\App\Http\Controllers\GameController::class,'resetGame'])->name('resetgames');
 
     Route::get('/dashboard', function () {
 

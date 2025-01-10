@@ -40,6 +40,7 @@
                             {{ __('Created') }} : {{\App\Models\Game::lastActiveGame()->created_at->diffForHumans()}}
                         </x-nav-link>
                     </div>
+
                     <form action="/endgame" method="post">
                         @csrf
 
@@ -51,7 +52,25 @@
 
                  </form>
 
-                @else
+
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link href="#"  onclick="window.location.reload(true);" class="btn btn-sm btn-info p-3 m-3 text-black-50 ">
+                             Restart
+                            </x-nav-link>
+                        </div>
+
+
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <form action="/resetgame" method="post">
+                                @csrf
+                            <button type="submit"
+                                class="btn btn-sm btn-danger p-3 m-3 text-black-50 ">
+                                Reset
+                            </button>
+                            </form>
+                        </div>
+
+                    @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link href="{{ route('starter') }}" :active="request()->routeIs('starter')">
                             {{ __('New Game') }}
@@ -67,6 +86,11 @@
                             </x-nav-link>
                         </div>
 @endif
+
+                <button class="btn btn-primary" style="display: none"  type="button" disabled id="loading_spinner" >
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading Audio...
+                </button>
 
             </div>
 

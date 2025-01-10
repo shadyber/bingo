@@ -10,7 +10,7 @@ use Livewire\Component;
 class CardToggller extends Component
 {
 
-    public $card_id=null, $cardhjkjkl;
+    public $card_id=null, $card;
 
 
     public function togglecard(){
@@ -19,9 +19,8 @@ class CardToggller extends Component
         {
           //message error
         }else{
-            $card=Card::find($this->card_id);
-            $card->is_active=!$card->is_active;
-            $card->save();
+            $this->card->is_active=!$this->card->is_active;
+            $this->card->save();
 
             $selected_cards=Card::activeCardsByAgent();
             // is card allowed on game in progress

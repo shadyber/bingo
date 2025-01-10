@@ -36,47 +36,6 @@ class CardController extends Controller
 
 
 
-public function saveGame($game_type,$card_price){
-    $selected_cards  =json_encode(session()->get('selected_cards',[]));
-    $random_numbers=json_encode(session()->get('random_numbers',[]));
-
-
-if($selected_cards!="[]"){
-    $game=Game::create([
-        'agent_commission'=>$game_type,
-        'card_price'=>$card_price,
-        'user_id'=>Auth::user()->id,
-        'selected_cards'=>$selected_cards,
-        'cards_qnt'=>count(json_decode($selected_cards)),
-        'random_numbers'=>$random_numbers,
-    ]);
-
-}
-
-
-
-
-}
- // payment process form
-    public function payCommision(){
-     // count selected card
-
-        // save transaction
-
-        // calculate transaction
-    }
-
-
-    public function regeneraterandomarray(){
-
-        $random_number_array = range(1, 75);
-        shuffle($random_number_array );
-        $random_number_array = array_slice($random_number_array ,0,75);
-
-     return $random_number_array;
-
-
-    }
 
 
     public function togglecard(Request $request){
@@ -98,36 +57,6 @@ if($selected_cards!="[]"){
     return redirect()->back();
  }
 
- public function startnewgame(Request $request){
-
-     $game_t=$request->input('game_type');
-     $card_p=$request->input('card_price');
-     if(Game::getGameState()=="started"){
-         $request->session()->flash('message',"Game is In Progress...");
-         return redirect()->back();
-     }
-
-
-      $selected_cards=Card::activeCardsByAgent();
-
-      if(count($selected_cards)==0){
-          $request->session()->flash('error','No cards are selected to start a game.');
-          return  redirect()->back();
-      }
-
-     session()->put('selected_cards',$selected_cards);
-
-    $random_numbers=$this->regeneraterandomarray();
-array_unshift($random_numbers,'FREE');
-    session()->put('random_numbers',$random_numbers);
-
-    $this->saveGame($game_t,$card_p);
-   //$this->payCommision();
-
-
-
-   return redirect()->route('dashboard');
- }
 
 
     /**
