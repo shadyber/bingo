@@ -1,6 +1,5 @@
 <div>
 
-
     @if($card->is_active==0)
         <div class=" border border-gray-200 rounded-lg bg-gray-200 text-gray-900 m-2" style="height: 65px" >
             <div id="loadingAnimation" class="hidden"  wire:loading.class.remove="hidden" >Loading...</div>

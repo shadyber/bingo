@@ -72,7 +72,7 @@
 
             document.getElementById('getready').addEventListener('click', async () => {
 
-                var loading_btn=  document.getElementById('loading_spinner');
+                const loading_btn=  document.querySelector('#loading_spinner');
                 loading_btn.style.display = "block";
 
                 for (i = 1; i < 76; i++){

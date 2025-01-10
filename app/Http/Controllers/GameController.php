@@ -63,8 +63,6 @@ class GameController extends Controller
         return redirect()->route('dashboard');
     }
 
-
-
     public function regeneraterandomarray(){
 
         $random_number_array = range(1, 75);
@@ -76,7 +74,7 @@ class GameController extends Controller
 
     }
 
-public function resetGame(){
+   public function resetGame(){
         $random_numbers=$this->regeneraterandomarray();
     $game=Game::lastActiveGame();
     $random_numbers=$this->regeneraterandomarray();

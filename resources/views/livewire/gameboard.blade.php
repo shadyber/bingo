@@ -323,55 +323,55 @@
         }
     </style>
 
-<script>
-   document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space') { Livewire.emit('togglePause');
-        } });
+        <script type="text/javascript">
+           document.addEventListener('keydown', function(event) {
+                if (event.code === 'Space') { Livewire.emit('togglePause');
+                } });
 
 
 
 
-    document.addEventListener('livewire:load', function () {
+            document.addEventListener('livewire:load', function () {
 
-        let interval;
-        function startTimer() {
-            interval = setInterval(() => {
-                Livewire.emit('nextCall');
-                }, 4000);
-            // 1 second interval
-            }
-   function stopTimer() {
-            clearInterval(interval);
-        }
-        Livewire.on('callNext', () => {
-          if(@this.$paused){
+                let interval;
+                function startTimer() {
+                    interval = setInterval(() => {
+                        Livewire.emit('nextCall');
+                        }, 4000);
+                    // 1 second interval
+                    }
+           function stopTimer() {
+                    clearInterval(interval);
+                }
+                Livewire.on('callNext', () => {
+                  if(@this.$paused){
 
-          }else{
-startTimer();
-          }
-        });
-       Livewire.emit('callNext'); // Initial call to start the process // To ensure the timer starts running immediately
-     stopTimer();
+                  }else{
         startTimer();
+                  }
+                });
+               Livewire.emit('callNext'); // Initial call to start the process // To ensure the timer starts running immediately
+             stopTimer();
+                startTimer();
 
-        window.addEventListener('playAudio', event => {
-            try{
-
-
-            const audio = document.getElementById('myAudio');
-            audio.src = event.detail.url;
-            audio.play();
-             }catch(Exception){
-
-            }
-        });
+                window.addEventListener('playAudio', event => {
+                    try{
 
 
-    });
+                    const audio = document.getElementById('myAudio');
+                    audio.src = event.detail.url;
+                    audio.play();
+                     }catch(Exception){
+
+                    }
+                });
+
+
+            });
 
 
 
-</script>
+        </script>
 
 
 

@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class GameControll extends Component
 {
-public  $agent_cards;
+public  $agent_cards, $cards;
 
 public function mount(){
     $this->cards=Card::agentCards();
