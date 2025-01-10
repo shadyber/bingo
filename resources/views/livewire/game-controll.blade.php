@@ -80,14 +80,16 @@
                     </div>
                 @else
                     <div class="col-md-12 col-sm-12 col-lg-10 m-3 p-3">
-                        <a href="/card" class="btn btn-lg btn-danger btn-outline-dark" >Manage Cards </a>
+                        <a href="/dashboard" class="btn btn-lg btn-danger btn-outline-dark" >Manage Started Game </a>
                     </div>
                 @endif
             </div>
         </div>
     @else
         <div>
-            Non Active user
+            <div class="col-md-12 col-sm-12 col-lg-10 m-3 p-3">
+                <a href="#" class="btn btn-lg btn-danger btn-outline-dark" > Account Not Active , Contact Main Agent</a>
+            </div>
         </div>
     @endif
 </div>
