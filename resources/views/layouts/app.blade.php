@@ -12,7 +12,6 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css" >
         <link rel="stylesheet" href="/assets/css/award.css" >
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- Styles -->

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
+        $this->app->bind('path.public', function() {
+            return base_path('public_html');
+        });
+
     }
 
     /**
