@@ -7,16 +7,17 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css" >
         <link rel="stylesheet" href="/assets/css/award.css" >
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <!-- Styles -->
+         <!-- Styles -->
         @livewireStyles
-
+        <link rel="stylesheet" href="css/app.css">
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -45,7 +46,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
         <script src="/assets/js/award.js"></script>
         @livewireScripts
-
+        <script src="/js/app.js"></script>
+        <script src="/js/bootstrap.js"></script>
         <script type="text/javascript">
             async function saveAudioToCache(audioUrl) {
                 if ('caches' in window) {
@@ -88,5 +90,6 @@
                 loading_btn.style.display = "none";
             });
         </script>
+
     </body>
 </html>

@@ -11,12 +11,19 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        @livewireStyles
+        <link rel="stylesheet" href="/css/app.css">
+
+
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
+     </head>
     <body>
         <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
             {{ $slot }}
         </div>
+        @livewireScripts
+        <!-- Styles -->
+        <script src="{'/js/app.js'"></script>
+        <script src="'/js/bootstrap.js'"></script>
     </body>
 </html>

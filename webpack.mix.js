@@ -1,3 +1,4 @@
+/*
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 export default defineConfig(
@@ -13,3 +14,7 @@ export default defineConfig(
             }),
         ],
     });
+*/
+ let mix=require('laravel-mix')
+.js('resources/js/app.js','public/js')
+.postCss('resources/css/app.css','public/css')
