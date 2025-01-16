@@ -17,7 +17,7 @@
         <!-- Scripts -->
          <!-- Styles -->
         @livewireStyles
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="/css/app.css">
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -47,7 +47,6 @@
         <script src="/assets/js/award.js"></script>
         @livewireScripts
         <script src="/js/app.js"></script>
-        <script src="/js/bootstrap.js"></script>
         <script type="text/javascript">
             async function saveAudioToCache(audioUrl) {
                 if ('caches' in window) {

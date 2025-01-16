@@ -23,7 +23,6 @@
         </div>
         @livewireScripts
         <!-- Styles -->
-        <script src="{'/js/app.js'"></script>
-        <script src="'/js/bootstrap.js'"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>
